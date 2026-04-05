@@ -26,6 +26,10 @@ This project is a web-based Volunteer Management System that allows users to reg
 Team Members
 
 * Farkhonda Zaki
+* Brendon Harris-Williams
+* Ouiam Darouiche
+* Mason Scarvie
+* Dmitrii Shumilov
   
 
 ## Course

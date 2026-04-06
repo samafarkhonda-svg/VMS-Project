@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VMS Project</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .event-card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .event-card h3 {
+            margin: 0;
+            color: #2c3e50;
+        }
+
+        .event-details {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Volunteer Management System</h1>
+    <p>View Events</p>
+</header>
+
+<div class="container">
+    <h2>Available Events</h2>
+    <div id="eventsList"></div>
+</div>
+
+<script>
+const events = [
+  {
+    name: "Beach Cleanup",
+    date: "April 10",
+    time: "10:00 AM",
+    location: "Sacramento",
+    description: "Help clean the park"
+  },
+  {
+    name: "Food Drive",
+    date: "April 12",
+    time: "2:00 PM",
+    location: "Community Center",
+    description: "Help distribute food"
+  }
+];
+
+const container = document.getElementById("eventsList");
+
+events.forEach(event => {
+  const div = document.createElement("div");
+  div.classList.add("event-card");
+
+  div.innerHTML = `
+    <h3>${event.name}</h3>
+    <div class="event-details">
+        <p><strong>Date:</strong> ${event.date}</p>
+        <p><strong>Time:</strong> ${event.time}</p>
+        <p><strong>Location:</strong> ${event.location}</p>
+        <p>${event.description}</p>
+    </div>
+    <button class="btn">Register</button>
+  `;
+
+  container.appendChild(div);
+});
+</script>
+
+</body>
+</html>

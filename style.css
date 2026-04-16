@@ -108,3 +108,21 @@ button:hover{
     background-color: rgb(38, 36, 36);;
     transition: background-color 0.1s ease;
 }
+
+/*updates the dimensions of some tags so they look better on smaller screens*/
+@media (max-width: 800px) {
+    .signup-login-rectangle{
+        width: 85vw;
+        max-width: 600px;
+    }
+    .welcome{
+        width: 90vw;
+        max-width: 600px;
+    }
+  }
+
+  @media (max-width: 400px){
+    h1{
+        font-size: 25px;
+    }
+  }

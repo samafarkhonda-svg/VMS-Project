@@ -12,10 +12,7 @@ body{
 h1{
     font-weight: bold;
     font-size: large;
-    margin: 30px;
-    margin-bottom: 15px;
     font-size: 30px;
-    text-align: center;
 }
 
 input{
@@ -43,6 +40,12 @@ input::placeholder{
 }
 input:focus::placeholder{
     color: transparent;
+}
+
+.call-to-action{
+    margin: 30px;
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 .introduction{
@@ -109,7 +112,39 @@ button:hover{
     transition: background-color 0.1s ease;
 }
 
+.signup-confirmation-container{
+    display: flex;
+    flex-direction: column;
+}
+.confirmation-title{
+    text-align: left;
+    width: 70vw;
+    max-width: 500px;
+    margin-left: 25vw;
+    margin-top: 30px;
+    margin-bottom: 5px;
+}
+.confirmation-description{
+    width: 70vw;
+    max-width: 800px;
+    margin-left: 25vw;
+    margin-top: 5px;
+    margin-bottom: 30px;
+}
+
 /*updates the dimensions of some tags so they look better on smaller screens*/
+@media (max-width: 1300px) {
+    .confirmation-title, .confirmation-description{
+        margin-left: 18vw;
+    }
+}
+
+@media (max-width: 1100px) {
+    .confirmation-title, .confirmation-description{
+        margin-left: 12vw;
+    }
+}
+
 @media (max-width: 800px) {
     .signup-login-rectangle{
         width: 85vw;
@@ -119,10 +154,10 @@ button:hover{
         width: 90vw;
         max-width: 600px;
     }
-  }
+}
 
-  @media (max-width: 400px){
+@media (max-width: 400px){
     h1{
         font-size: 25px;
     }
-  }
+}

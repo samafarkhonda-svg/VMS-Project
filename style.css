@@ -19,7 +19,7 @@ h1{
 }
 
 input{
-    margin: 20px;
+    margin: 18px;
     padding: 10px;
     text-align: center;
     border-radius: 10px;
@@ -28,9 +28,21 @@ input{
     border-color: transparent;
     width: 80%;
     color: white;
+    transition: background-color 0.1s ease;
+}
+input:hover{
+    background-color: rgba(0, 0, 0, 0.4);
+    transition: background-color 0.1s ease;
+}
+input:focus{
+    outline: none;
+    box-shadow: none;
 }
 input::placeholder{
     color: rgb(225, 225, 225);
+}
+input:focus::placeholder{
+    color: transparent;
 }
 
 .introduction{
@@ -78,7 +90,7 @@ input::placeholder{
 
 .sign-up{
     padding: 10px;
-    margin-top: 12px;
+    margin-top: 30px;
     margin-bottom: 25px;
     background-color: black;
     color: white;
@@ -86,7 +98,13 @@ input::placeholder{
     max-width: 500px;
 }
 
-.button{
+button{
     border-radius: 15px;
-    border-color: rgb(255, 165, 0);
+    border-color: transparent;
+    transition: background-color 0.1s ease;
+}
+button:hover{
+    cursor: pointer;
+    background-color: rgb(38, 36, 36);;
+    transition: background-color 0.1s ease;
 }

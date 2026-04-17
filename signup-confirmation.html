@@ -9,25 +9,12 @@
     </head>
 <body>
     <div class="signup-confirmation-container">
-        <h1 class="confirmation-title">Sign-up Confirmation</h1>
-        <p class="confirmation-description">You should have received a six-digit code via email. If you have not received the code yet, please wait up to five minutes before requesting a new code.</p>
+        <h1 class="margin-10">Sign-up Confirmation</h1>
+        <p class="margin-10">You should have received a six-digit code via email. If you have not received the code yet, please wait up to five minutes before requesting a new code.</p>
+        <p class="margin-10">Enter the code below: </p>
+        <input type="text" class="verification-code" id="verification-code" name="verificationCode" placeholder="000000" 
+        inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" maxlength="6">
+        <button class="confirm-code">Confirm</button>
     </div>
-
-<!--change the code below later-->
-<!--    <div class="center">
-        <div class="signup-login-rectangle">
-            <h1>Create an Account</h1>
-            <form action="/signup" method="POST"></form>
-                <div class="input-fields">
-                    <input type="text" id="firstname" name="firstname" placeholder="First Name">
-                    <input type="text" id="lastname" name="lastname" placeholder="Last Name">
-                    <input type="text" id="username" name="username" placeholder="Username">
-                    <input type="email" id="email" name="email" placeholder="E-mail">
-                    <input type="password" id="password" name="password" placeholder="Password">
-                </div>
-                <button type="submit" class="sign-up">Sign Up</button>
-            </form>
-        </div>
-    </div>-->
 </body>
 </html>

@@ -16,13 +16,13 @@
             <h1 class="call-to-action">Create an Account</h1>
             <form action="/signup" method="POST"></form>
                 <div class="input-fields">
-                    <input type="text" id="firstname" name="firstname" placeholder="First Name">
-                    <input type="text" id="lastname" name="lastname" placeholder="Last Name">
-                    <input type="text" id="username" name="username" placeholder="Username">
-                    <input type="email" id="email" name="email" placeholder="E-mail">
-                    <input type="password" id="password" name="password" placeholder="Password">
+                    <input class="signup-page-input" type="text" id="firstname" name="firstname" placeholder="First Name">
+                    <input class="signup-page-input" type="text" id="lastname" name="lastname" placeholder="Last Name">
+                    <input class="signup-page-input" type="text" id="username" name="username" placeholder="Username">
+                    <input class="signup-page-input" type="email" id="email" name="email" placeholder="E-mail">
+                    <input class="signup-page-input" type="password" id="password" name="password" placeholder="Password">
                 </div>
-                <button type="submit" class="sign-up">Sign Up</button>
+                <button type="submit" onclick="window.location.href='signup-confirmation.html'" class="sign-up">Sign Up</button>
             </form>
         </div>
     </div>

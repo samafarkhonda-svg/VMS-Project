@@ -147,13 +147,13 @@ button{
 
 /*updates the dimensions for some tags so they look better on smaller screens*/
 @media (max-width: 1300px) {
-    .confirmation-title{
+    .confirmation-title, .confirmation-description{ /* add confirmation */
         margin-left: 18vw;
     }
 }
 
 @media (max-width: 1100px) {
-    .confirmation-title{
+    .confirmation-title, .confirmation-description{
         margin-left: 12vw;
     }
 }
@@ -179,4 +179,112 @@ button{
     h1{
         font-size: 25px;
     }
+}
+
+
+/* Update  */
+
+.header {
+    background-color: rgb(255, 165, 0);
+    height: 100px;
+    display: flex;
+    align-items: center;
+    padding: 0 50px;
+    position: relative;
+}
+
+
+.back-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: rgb(34, 34, 34);
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+
+.header-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.header-icon {
+    font-size: 22px;
+}
+
+.header-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+.forgot-password-container {
+    margin-left: 220px;
+    margin-top: 110px;
+}
+
+.forgot-password-container h1 {
+    font-size: 42px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.forgot-description {
+    font-size: 18px;
+    margin-bottom: 35px;
+}
+
+
+.forgot-email-input {
+    width: 600px;
+    max-width: 80vw;
+    height: 64px;
+    border-radius: 18px;
+    border: none;
+    background-color: rgb(237, 220, 183);
+    color: black;
+    text-align: left;
+    padding-left: 22px;
+    font-size: 18px;
+    margin: 0 0 40px 0;
+}
+
+.forgot-email-input::placeholder {
+    color: black;
+}
+
+.forgot-email-input:focus::placeholder {
+    color: transparent;
+}
+
+
+.forgot-submit {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 12px 34px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+
+.footer {
+    position: absolute;
+    bottom: 25px;
+    left: 35px;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    font-size: 15px;
+}
+
+.footer-title {
+    font-weight: bold;
 }

@@ -132,7 +132,7 @@ button:hover{
     margin-bottom: 30px;
 }
 
-/*updates the dimensions of some tags so they look better on smaller screens*/
+/*updates the dimensions for some tags so they look better on smaller screens*/
 @media (max-width: 1300px) {
     .confirmation-title, .confirmation-description{
         margin-left: 18vw;

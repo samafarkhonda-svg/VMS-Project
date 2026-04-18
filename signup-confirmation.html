@@ -8,13 +8,26 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     </head>
 <body>
+    <div class="header">
+        <div class="header-center">
+            <div class="header-icon">✿</div>
+            <div class="header-title">Volunteer Management System</div>
+        </div>
+    </div>
+
     <div class="signup-confirmation-container">
+
         <h1 class="margin-10">Sign-up Confirmation</h1>
-        <p class="margin-10">You should have received a six-digit code via email. If you have not received the code yet, please wait up to five minutes before requesting a new code.</p>
+        <p class="margin-10">
+            You should have received a six-digit code via email. If you have not received the code yet, 
+            please wait up to five minutes before requesting a new code.
+        </p>
         <p class="margin-10">Enter the code below: </p>
+
         <input type="text" class="verification-code" id="verification-code" name="verificationCode" placeholder="000000" 
         inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" maxlength="6">
-        <button class="confirm-code">Confirm</button>
+        <button class="confirm-code" onclick="window.location.href='login.html'">Confirm</button>
+
     </div>
 </body>
 </html>

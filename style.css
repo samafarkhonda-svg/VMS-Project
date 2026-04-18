@@ -118,6 +118,7 @@ button{
     flex-direction: column;
     max-width: 60vw;
     margin: 0 auto;
+    margin-top: 50px;
 }
 
 .margin-10{

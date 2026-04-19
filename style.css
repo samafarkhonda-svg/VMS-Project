@@ -83,6 +83,7 @@ input:focus::placeholder{
     align-items: center;
     width: 60%;
     max-width: 500px;
+    border-radius: 15px;
 }
 
 .input-fields{
@@ -144,6 +145,10 @@ button{
     color: white;
     padding: 7px;
     margin-left: auto;
+}
+
+.login-input{
+    margin: 10px;
 }
 
 /*updates the dimensions for some tags so they look better on smaller screens*/
@@ -235,6 +240,9 @@ button{
     font-size: 42px;
     font-weight: bold;
     margin-bottom: 20px;
+}
+.forgot-password{
+    color: black;
 }
 
 .forgot-description {

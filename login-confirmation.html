@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Confirmation - Volunteer Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="header">
+        <a href="login.html" class="back-button">&#8592;</a>
+
+        <div class="header-center">
+            <div class="header-icon">✿</div>
+            <div class="header-title">Volunteer Management System</div>
+        </div>
+    </div>
+
+    <div class="logout-container">
+        <h1>Log-in Confirmation</h1>
+        <p class="logout-description">
+            You should have received a six-digit code via email. <br>
+            If you have not received the code yet, please wait up to five minutes before requesting a new code.
+
+            Enter the code below:
+        </p>
+
+        <form>
+            <input 
+                type="text"
+                class="digit-code" 
+                placeholder="000000"
+                maxlength="6"
+                inputmode="numeric"
+                required>
+            <br>
+            <button type="submit" class="forgot-submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="footer">
+        <span class="footer-title">✿ Volunteer Management System</span>
+        <span>Thank you for visiting!</span>
+    </div>
+
+</body>
+</html>

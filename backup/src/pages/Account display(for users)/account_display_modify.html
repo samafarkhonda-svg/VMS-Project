@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile Form</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  
+  <!-- LEFT PANEL -->
+  <div class="sidebar">
+    <div class="top-bar">
+      <button class="back-btn">←</button>
+      <span class="signout">sign out</span>
+    </div>
+
+    <h2>Profile Photo</h2>
+
+    <div class="photo-box">
+      <img id="profileImage" src="images/profile.png" alt="Profile">
+    </div>
+
+    <button class="change-photo">Change Photo</button>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="form-area">
+    <form>
+
+      <div class="row">
+        <div class="field">
+          <label>First Name</label>
+          <input type="text" id="firstName">
+        </div>
+        <div class="field">
+          <label>Last Name</label>
+          <input type="text" id="lastName">
+        </div>
+      </div>
+
+      <div class="field full">
+        <label>Email Address</label>
+        <input type="email" id="email">
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>Phone Number</label>
+          <input type="text" id="phone">
+        </div>
+        <div class="field">
+          <label>Birth Date</label>
+          <input type="text" id="birthDate">
+        </div>
+      </div>
+
+      <div class="field full">
+        <label>Address</label>
+        <input type="text" id="address">
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>City</label>
+          <input type="text" id="city">
+        </div>
+        <div class="field">
+          <label>State</label>
+          <input type="text" id="state">
+        </div>
+        <div class="field">
+          <label>Zip Code</label>
+          <input type="text" id="zip">
+        </div>
+      </div>
+
+      <div class="field full">
+        <label>Bio</label>
+        <textarea id="bio"></textarea>
+      </div>
+
+
+      <div class="submit-row">
+	<!-- Pressing the button saves changes -->
+        <button type="button" class="save-btn" onclick="saveProfile()">Save changes</button>
+      </div>
+
+    </form>
+  </div>
+
+</div>
+
+<!-- ✅ JAVASCRIPT -->
+<script>
+
+// Load profile from backend
+async function loadProfile() {
+  try {
+    const response = await fetch("http://localhost:8080/api/profile");
+    const data = await response.json();
+
+    document.getElementById("firstName").value = data.firstName || "";
+    document.getElementById("lastName").value = data.lastName || "";
+    document.getElementById("email").value = data.email || "";
+    document.getElementById("phone").value = data.phone || "";
+    document.getElementById("birthDate").value = data.birthDate || "";
+    document.getElementById("address").value = data.address || "";
+    document.getElementById("city").value = data.city || "";
+    document.getElementById("state").value = data.state || "";
+    document.getElementById("zip").value = data.zip || "";
+    document.getElementById("bio").value = data.bio || "";
+
+    // Optional: load profile image
+    if (data.imageUrl) {
+      document.getElementById("profileImage").src = data.imageUrl;
+    }
+
+  } catch (error) {
+    console.error("Error loading profile:", error);
+  }
+}
+
+// Save profile to backend
+async function saveProfile() 
+{
+  const profile = 
+  {
+    firstName: document.getElementById("firstName").value,
+    lastName: document.getElementById("lastName").value,
+    email: document.getElementById("email").value,
+    phone: document.getElementById("phone").value,
+    birthDate: document.getElementById("birthDate").value,
+    address: document.getElementById("address").value,
+    city: document.getElementById("city").value,
+    state: document.getElementById("state").value,
+    zip: document.getElementById("zip").value,
+    bio: document.getElementById("bio").value
+  };
+
+  try 
+  {
+    await fetch("http://localhost:8080/api/profile", 
+    {
+      method: "POST",
+      headers: 
+      {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(profile)
+    });
+
+    alert("Profile saved!");
+    window.location.href = "account_display.html";
+
+    } 
+    catch (error) 
+    {
+        console.error("Error saving profile:", error);
+    }
+}
+
+// Run on page load
+window.onload = loadProfile;
+
+</script>
+
+</body>
+</html>

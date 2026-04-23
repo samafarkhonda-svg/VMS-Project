@@ -1,0 +1,309 @@
+/*html -> css*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font: 15px Inter;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+}
+
+body{
+  width: 100%;
+  overflow: hidden;
+}
+
+h1{
+  font-weight: bold;
+  font-size: large;
+  font-size: 30px;
+}
+
+input{
+  border-radius: 10px;
+  padding: 10px;
+  border-style: groove;
+  border-color: transparent;
+}
+input:focus{
+  outline: none;
+  box-shadow: none;
+}
+input:focus::placeholder{
+  color: transparent;
+}
+.signup-page-input:hover{
+  background-color: rgba(0, 0, 0, 0.4);
+  transition: background-color 0.1s ease;
+}
+.signup-page-input::placeholder{
+  color: rgb(225, 225, 225);
+}
+.signup-page-input{
+  text-align: center;
+  margin: 18px;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 80%;
+  color: white;
+  transition: background-color 0.1s ease;
+}
+
+.call-to-action{
+  margin: 30px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.introduction{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+  padding-top: 3%;
+  padding-bottom: 3%;
+}
+
+.welcome{
+  margin-left: 10%;
+  margin-right: 10%;
+  text-align: center;
+  width: 60%;
+  max-width: 500px;
+  font-size: 18px;
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-login-rectangle{
+  background-color: rgb(255, 165, 0);
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+  max-width: 500px;
+  border-radius: 15px;
+}
+
+.input-fields{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+button{
+  border-radius: 15px;
+  border-color: transparent;
+}
+.sign-up{
+  padding: 10px;
+  margin-top: 30px;
+  margin-bottom: 25px;
+  background-color: black;
+  color: white;
+  width: 82%;
+  max-width: 500px;
+  transition: background-color 0.1s ease;
+}
+.sign-up:hover, .confirm-code:hover{
+  cursor: pointer;
+  background-color: rgb(38, 36, 36);;
+  transition: background-color 0.1s ease;
+}
+
+.signup-confirmation-container{
+  display: flex;
+  flex-direction: column;
+  max-width: 60vw;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.margin-10{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.verification-code{
+  background-color: rgba(255, 165, 0, .5);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.verification-code:hover{
+  background-color: rgba(255, 165, 0, .6);
+}
+.verification-code::placeholder{
+  color: black;
+}
+
+.confirm-code{
+  width: 20%;
+  background-color: black;
+  color: white;
+  padding: 7px;
+  margin-left: auto;
+}
+
+.login-input{
+  margin: 10px;
+}
+
+/*updates the dimensions for some tags so they look better on smaller screens*/
+@media (max-width: 1300px) {
+  .confirmation-title, .confirmation-description{ /* add confirmation */
+      margin-left: 18vw;
+  }
+}
+
+@media (max-width: 1100px) {
+  .confirmation-title, .confirmation-description{
+      margin-left: 12vw;
+  }
+}
+
+@media (max-width: 800px) {
+  .signup-login-rectangle{
+      width: 85vw;
+      max-width: 600px;
+  }
+  .welcome{
+      width: 90vw;
+      max-width: 600px;
+  }
+}
+
+@media (max-width: 700px){
+  .confirm-code{
+      width:50%;
+  }
+}
+
+@media (max-width: 400px){
+  h1{
+      font-size: 25px;
+  }
+}
+
+
+/* Update  */
+
+.header {
+  background-color: rgb(255, 165, 0);
+  height: 100px;
+  display: flex;
+  align-items: center;
+  padding: 0 50px;
+  position: relative;
+  width: 100%;  /* add this */
+}
+
+
+.back-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: rgb(34, 34, 34);
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+
+.header-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.header-icon {
+  font-size: 22px;
+}
+
+.header-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Forget css removed */
+
+
+.footer {
+  position: absolute;
+  bottom: 25px;
+  left: 35px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  font-size: 15px;
+}
+
+.footer-title {
+  font-weight: bold;
+}
+
+.account-management-wrapper{
+  display: flex;
+  flex-direction: row;
+}
+
+.left-side{
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(255, 165, 0);
+  height: 100vw;
+  width: 20vw;
+  overflow: hidden;
+}
+
+.right-side{
+  background-color: rgba(255, 165, 0, .6);
+  display: flex;
+  flex-direction: column;
+  height: 100vw;
+  width: 80vw;
+}
+/* log out */
+/**/
+.logout-container {
+  margin-left: 220px;
+  margin-top: 110px;
+}
+
+.logout-container h1 {
+  font-size: 42px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.logout-description {
+  font-size: 18px;
+  margin-bottom: 35px;
+}
+
+.Got-it {
+background-color: black;
+color: white;
+border: none;
+border-radius: 10px;
+padding: 14px 30px;
+font-size: 22px;
+cursor: pointer;
+}
+
+.Got-it:hover {
+opacity: 0.9;
+}
+/**/

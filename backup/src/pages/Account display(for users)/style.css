@@ -1,0 +1,126 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #eee;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* LEFT PANEL */
+.sidebar {
+  width: 30%;
+  background: #f59e0b;
+  color: black;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.top-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.back-btn {
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.signout {
+  margin-left: 10px;
+}
+
+.photo-box {
+  background: white;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.photo-box img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.change-photo {
+  background: black;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* RIGHT PANEL */
+.form-area {
+  width: 70%;
+  padding: 30px;
+  background: #ddd;
+}
+
+form {
+  max-width: 700px;
+}
+
+.row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.field.full {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input, textarea {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #e6c68b;
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+.submit-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.save-btn {
+  background: black;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}

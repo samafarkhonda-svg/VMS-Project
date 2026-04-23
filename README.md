@@ -1,40 +1,16 @@
-# Volunteer Management System (VMS)
+# React + Vite
 
-## Project Description
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-This project is a web-based Volunteer Management System that allows users to register, view events, and track their volunteer activities.
+Currently, two official plugins are available:
 
-## Features
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-*  Volunteer Registration
-* List of Events
-* Register/Unregister for Events
-* Welcome/Landing Page
-* About Us / Contact Us Page
-* Partnerships Page
-* Volunteer Account Management
-* Volunteer Hours Tracking
-* Feedback and Reflection System
-## Technologies
+## React Compiler
 
-* HTML, CSS, JavaScript
-* Node.js / Python / Java (to be decided)
-* MySQL
-* Figma (Design Prototype)
-* Jira (Project Management)
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-Team Members
+## Expanding the ESLint configuration
 
-* Farkhonda Zaki
-* Brendon Harris-Williams
-* Ouiam Darouiche
-* Mason Scarvie
-* Dmitrii Shumilov
-  
-
-  
-
-## Course
-
-CSC 131 - Computer Software Engineering
-California State University, Sacramento
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

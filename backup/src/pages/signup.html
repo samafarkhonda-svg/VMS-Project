@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign Up - Volunteer Management System</title>
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+<body>
+    <div class="header">
+        <div class="header-center">
+            <div class="header-icon">✿</div>
+            <div class="header-title">Volunteer Management System</div>
+        </div>
+    </div>
+
+    <div class="introduction">
+        <p class="welcome">Welcome to the Volunteer management system portal! Please create an account so you can see all of our amazing events!</p>
+    </div>
+
+    <div class="center">
+        <div class="signup-login-rectangle">
+            <h1 class="call-to-action">Create an Account</h1>
+            <form action="/signup" method="POST"></form>
+                <div class="input-fields">
+                    <input class="signup-page-input" type="text" id="firstname" name="firstname" placeholder="First Name">
+                    <input class="signup-page-input" type="text" id="lastname" name="lastname" placeholder="Last Name">
+                    <input class="signup-page-input" type="text" id="username" name="username" placeholder="Username">
+                    <input class="signup-page-input" type="email" id="email" name="email" placeholder="E-mail">
+                    <input class="signup-page-input" type="password" id="password" name="password" placeholder="Password">
+                </div>
+                <button type="submit" onclick="window.location.href='signup-confirmation.html'" class="sign-up">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        <span class="footer-title">✿ Volunteer Management System</span>
+        <span>Thank you for visiting!</span>
+    </div>
+</body>
+</html>

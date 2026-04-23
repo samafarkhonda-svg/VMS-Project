@@ -1,16 +1,41 @@
-import { Link } from "react-router-dom";
-
 function Navbar() {
+    const loggedIn = false;
+    if (loggedIn) {
     return (
         <nav>
-            <h2>Event App</h2>
-            <div>
-                <Link to="/">Home</Link>
-                <Link to="/events">Events</Link>
-                <Link to="/login">Login</Link>
-                <Link to="/signup">Signup</Link>
+            <div class="navbar">
+                <div class="leftalign">
+                    <div class="navlogo">✿</div>
+                    <div class="navlinks"><a href="/">Volunteer Management System</a></div>
+                    <div class="navlinks"><a href="/events">About</a></div>
+                    <div class="navlinks"><a href="/login">Events</a></div>
+                    <div class="navlinks"><a href="/signup">Partnerships</a></div>
+                </div>
+                <div class="rightalign">
+                    <div class="navlinksusername">USERNAME</div>
+                    <a href="/login"><div class="navbutton">Log Out</div></a>
+                </div>
             </div>
         </nav>
-    );
+    );}
+    else{
+    return (
+        <nav>
+            <div class="navbar">
+                <div class="leftalign">
+                    <div class="navlogo">✿</div>
+                    <div class="navlinks"><a href="/">Volunteer Management System</a></div>
+                    <div class="navlinks"><a href="/events">About</a></div>
+                    <div class="navlinks"><a href="/login">Events</a></div>
+                    <div class="navlinks"><a href="/signup">Partnerships</a></div>
+                </div>
+                <div class="rightalign">
+                    <div class="navlinksusername">Log In</div>
+                    <a href="/login"><div class="navbutton">Sign Up</div></a>
+                </div>
+            </div>
+        </nav>
+    );}
+        
 }
 export default Navbar;

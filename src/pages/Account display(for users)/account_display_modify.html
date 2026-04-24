@@ -17,12 +17,10 @@
     </div>
 
     <h2>Profile Photo</h2>
-
     <div class="photo-box">
       <img id="profileImage" src="images/profile.png" alt="Profile">
     </div>
 
-    <button class="change-photo">Change Photo</button>
   </div>
 
   <!-- RIGHT PANEL -->
@@ -98,9 +96,12 @@
 // Load profile from backend
 async function loadProfile() 
 {
-  try 
-  {
+  try {
     const response = await fetch("http://localhost:8080/api/profile");
+    if (!response.ok) 
+    {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     const data = await response.json();
 
     document.getElementById("firstName").value = data.firstName || "";
@@ -124,6 +125,7 @@ async function loadProfile()
   catch (error) 
   {
     console.error("Error loading profile:", error);
+    alert("Failed to load profile. Please try again.");
   }
 }
 
@@ -146,28 +148,32 @@ async function saveProfile()
 
   try 
   {
-    await fetch("http://localhost:8080/api/profile", 
-    {
+    const response = await fetch("http://localhost:8080/api/profile", {
       method: "POST",
-      headers: 
-      {
+      headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(profile)
     });
 
-    alert("Profile saved!");
+    if (!response.ok) 
+    {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    alert("Profile saved successfully!");
     window.location.href = "account_display.html";
 
-    } 
-    catch (error) 
-    {
-        console.error("Error saving profile:", error);
-    }
+  } 
+  catch (error) 
+  {
+    console.error("Error saving profile:", error);
+    alert("Failed to save profile. Please try again.");
+  }
 }
 
 // Run on page load
-window.onload = loadProfile;
+window.addEventListener("load", loadProfile);
 
 </script>
 

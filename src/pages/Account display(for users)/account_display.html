@@ -98,53 +98,39 @@ async function loadProfile()
   try 
   {
     const response = await fetch("http://localhost:8080/api/profile");
+    if (!response.ok) 
+    {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     const data = await response.json();
 
-    document.getElementById("firstName").textContent = data.firstName || "";
-    document.getElementById("lastName").textContent = data.lastName || "";
-    document.getElementById("email").textContent = data.email || "";
-    document.getElementById("phone").textContent = data.phone || "";
-    document.getElementById("birthDate").textContent = data.birthDate || "";
-    document.getElementById("address").textContent = data.address || "";
-    document.getElementById("city").textContent = data.city || "";
-    document.getElementById("state").textContent = data.state || "";
-    document.getElementById("zip").textContent = data.zip || "";
-    document.getElementById("bio").textContent = data.bio || "";
+    // Use .value for input elements (not .textContent)
+    document.getElementById("firstName").value = data.firstName || "";
+    document.getElementById("lastName").value = data.lastName || "";
+    document.getElementById("email").value = data.email || "";
+    document.getElementById("phone").value = data.phone || "";
+    document.getElementById("birthDate").value = data.birthDate || "";
+    document.getElementById("address").value = data.address || "";
+    document.getElementById("city").value = data.city || "";
+    document.getElementById("state").value = data.state || "";
+    document.getElementById("zip").value = data.zip || "";
+    document.getElementById("bio").value = data.bio || "";
 
     // Optional: load profile image
     if (data.imageUrl) 
     {
       document.getElementById("profileImage").src = data.imageUrl;
     }
-
   } 
   catch (error) 
   {
     console.error("Error loading profile:", error);
+    alert("Failed to load profile. Please try again.");
   }
 }
-  try 
-  {
-    await fetch("http://localhost:8080/api/profile", 
-    {
-      method: "POST",
-      headers: 
-      {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(profile)
-    });
-
-    alert("Profile saved!");
-
-  } 
-  catch (error) 
-  {
-    console.error("Error saving profile:", error);
-  }
 
 // Run on page load
-window.onload = loadProfile;
+window.addEventListener("load", loadProfile);
 
 </script>
 

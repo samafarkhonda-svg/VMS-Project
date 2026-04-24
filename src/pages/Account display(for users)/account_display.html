@@ -78,6 +78,13 @@
         <textarea id="bio" readonly></textarea>
       </div>
 
+      <div class="field full">
+        <label>Registered Events</label>
+        <div id="registeredEventsList" style="padding: 12px; border-radius: 10px; min-height: 60px; background: #e6c68b;">
+          <p id="noEventsMessage">No events registered yet.</p>
+        </div>
+      </div>
+
       <div class="submit-row">
         <button class="save-btn" onclick="window.location.href='account_display_modify.html'">
          Edit Profile
@@ -93,13 +100,10 @@
 <script>
 
 // Load profile from backend
-async function loadProfile() 
-{
-  try 
-  {
+async function loadProfile() {
+  try {
     const response = await fetch("http://localhost:8080/api/profile");
-    if (!response.ok) 
-    {
+    if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
@@ -117,20 +121,61 @@ async function loadProfile()
     document.getElementById("bio").value = data.bio || "";
 
     // Optional: load profile image
-    if (data.imageUrl) 
-    {
+    if (data.imageUrl) {
       document.getElementById("profileImage").src = data.imageUrl;
     }
-  } 
-  catch (error) 
-  {
+  } catch (error) {
     console.error("Error loading profile:", error);
     alert("Failed to load profile. Please try again.");
   }
 }
 
+// Load registered events from backend
+async function loadRegisteredEvents() {
+  try {
+    const response = await fetch("http://localhost:8080/api/events/registered");
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    const eventIds = data.eventIds || [];
+
+    // Fetch event details for the registered events
+    if (eventIds.length > 0) {
+      const eventsList = document.getElementById("registeredEventsList");
+      const noEventsMessage = document.getElementById("noEventsMessage");
+
+      // Fetch details for each event
+      const eventDetailsPromises = eventIds.map(eventId =>
+        fetch(`http://localhost:8080/api/events/${eventId}`)
+          .then(res => res.json())
+          .catch(err => {
+            console.error(`Error fetching event ${eventId}:`, err);
+            return { id: eventId, title: `Event ${eventId}` };
+          })
+      );
+
+      const eventDetails = await Promise.all(eventDetailsPromises);
+
+      // Create HTML for each event
+      const eventsHTML = eventDetails
+        .map(event => `<div style="padding: 8px; margin: 3px 0;">• ${event.title || `Event ${event.id}`}</div>`)
+        .join("");
+
+      noEventsMessage.style.display = "none";
+      eventsList.innerHTML = eventsHTML || "<p>No events found.</p>";
+    }
+  } catch (error) {
+    console.error("Error loading registered events:", error);
+    // Don't show alert for events - just log the error
+  }
+}
+
 // Run on page load
-window.addEventListener("load", loadProfile);
+window.addEventListener("load", () => {
+  loadProfile();
+  loadRegisteredEvents();
+});
 
 </script>
 

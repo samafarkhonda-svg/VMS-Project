@@ -93,8 +93,10 @@
 <script>
 
 // Load profile from backend
-async function loadProfile() {
-  try {
+async function loadProfile() 
+{
+  try 
+  {
     const response = await fetch("http://localhost:8080/api/profile");
     const data = await response.json();
 
@@ -110,18 +112,24 @@ async function loadProfile() {
     document.getElementById("bio").textContent = data.bio || "";
 
     // Optional: load profile image
-    if (data.imageUrl) {
+    if (data.imageUrl) 
+    {
       document.getElementById("profileImage").src = data.imageUrl;
     }
-    });
-  } catch (error) {
+
+  } 
+  catch (error) 
+  {
     console.error("Error loading profile:", error);
   }
 }
-  try {
-    await fetch("http://localhost:8080/api/profile", {
+  try 
+  {
+    await fetch("http://localhost:8080/api/profile", 
+    {
       method: "POST",
-      headers: {
+      headers: 
+      {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(profile)
@@ -129,10 +137,11 @@ async function loadProfile() {
 
     alert("Profile saved!");
 
-  } catch (error) {
+  } 
+  catch (error) 
+  {
     console.error("Error saving profile:", error);
   }
-}
 
 // Run on page load
 window.onload = loadProfile;

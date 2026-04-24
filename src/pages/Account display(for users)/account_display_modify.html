@@ -96,8 +96,10 @@
 <script>
 
 // Load profile from backend
-async function loadProfile() {
-  try {
+async function loadProfile() 
+{
+  try 
+  {
     const response = await fetch("http://localhost:8080/api/profile");
     const data = await response.json();
 
@@ -113,11 +115,14 @@ async function loadProfile() {
     document.getElementById("bio").value = data.bio || "";
 
     // Optional: load profile image
-    if (data.imageUrl) {
+    if (data.imageUrl) 
+    {
       document.getElementById("profileImage").src = data.imageUrl;
     }
 
-  } catch (error) {
+  } 
+  catch (error) 
+  {
     console.error("Error loading profile:", error);
   }
 }

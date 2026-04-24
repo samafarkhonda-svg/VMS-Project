@@ -22,7 +22,6 @@
       <img id="profileImage" src="images/profile.png" alt="Profile">
     </div>
 
-    <button class="change-photo">Change Photo</button>
   </div>
 
   <!-- RIGHT PANEL -->
@@ -32,59 +31,64 @@
       <div class="row">
         <div class="field">
           <label>First Name</label>
-          <input type="text" id="firstName">
+          <input type="text" id="firstName" readonly>
         </div>
         <div class="field">
           <label>Last Name</label>
-          <input type="text" id="lastName">
+          <input type="text" id="lastName" readonly>
         </div>
       </div>
 
       <div class="field full">
         <label>Email Address</label>
-        <input type="email" id="email">
+        <input type="text" id="email" readonly>
       </div>
 
       <div class="row">
         <div class="field">
           <label>Phone Number</label>
-          <input type="text" id="phone">
+          <input type="text" id="phone" readonly>
         </div>
         <div class="field">
           <label>Birth Date</label>
-          <input type="text" id="birthDate">
+          <input type="text" id="birthDate" readonly>
         </div>
       </div>
-
       <div class="field full">
         <label>Address</label>
-        <input type="text" id="address">
+        <input type="text" id="address" readonly>
       </div>
-
       <div class="row">
         <div class="field">
           <label>City</label>
-          <input type="text" id="city">
+          <input type="text" id="city" readonly>
         </div>
         <div class="field">
           <label>State</label>
-          <input type="text" id="state">
+         <input type="text" id="state" readonly>
         </div>
         <div class="field">
           <label>Zip Code</label>
-          <input type="text" id="zip">
+  	  <input type="text" id="zip" readonly>
         </div>
       </div>
 
       <div class="field full">
         <label>Bio</label>
-        <textarea id="bio"></textarea>
+        <textarea id="bio" readonly></textarea>
       </div>
 
-      <p class="note">p.s. photo is required</p>
+      <div class="field full">
+        <label>Registered Events</label>
+        <div id="registeredEventsList" style="padding: 12px; border-radius: 10px; min-height: 60px; background: #e6c68b;">
+          <p id="noEventsMessage">No events registered yet.</p>
+        </div>
+      </div>
 
       <div class="submit-row">
-        <button type="button" class="save-btn" onclick="saveProfile()">Save Changes</button>
+        <button class="save-btn" onclick="window.location.href='account_display_modify.html'">
+         Edit Profile
+        </button>
       </div>
 
     </form>
@@ -99,8 +103,12 @@
 async function loadProfile() {
   try {
     const response = await fetch("http://localhost:8080/api/profile");
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     const data = await response.json();
 
+    // Use .value for input elements (not .textContent)
     document.getElementById("firstName").value = data.firstName || "";
     document.getElementById("lastName").value = data.lastName || "";
     document.getElementById("email").value = data.email || "";
@@ -116,45 +124,58 @@ async function loadProfile() {
     if (data.imageUrl) {
       document.getElementById("profileImage").src = data.imageUrl;
     }
-
   } catch (error) {
     console.error("Error loading profile:", error);
+    alert("Failed to load profile. Please try again.");
   }
 }
 
-// Save profile to backend
-async function saveProfile() {
-  const profile = {
-    firstName: document.getElementById("firstName").value,
-    lastName: document.getElementById("lastName").value,
-    email: document.getElementById("email").value,
-    phone: document.getElementById("phone").value,
-    birthDate: document.getElementById("birthDate").value,
-    address: document.getElementById("address").value,
-    city: document.getElementById("city").value,
-    state: document.getElementById("state").value,
-    zip: document.getElementById("zip").value,
-    bio: document.getElementById("bio").value
-  };
-
+// Load registered events from backend
+async function loadRegisteredEvents() {
   try {
-    await fetch("http://localhost:8080/api/profile", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(profile)
-    });
+    const response = await fetch("http://localhost:8080/api/events/registered");
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    const eventIds = data.eventIds || [];
 
-    alert("Profile saved!");
+    // Fetch event details for the registered events
+    if (eventIds.length > 0) {
+      const eventsList = document.getElementById("registeredEventsList");
+      const noEventsMessage = document.getElementById("noEventsMessage");
 
+      // Fetch details for each event
+      const eventDetailsPromises = eventIds.map(eventId =>
+        fetch(`http://localhost:8080/api/events/${eventId}`)
+          .then(res => res.json())
+          .catch(err => {
+            console.error(`Error fetching event ${eventId}:`, err);
+            return { id: eventId, title: `Event ${eventId}` };
+          })
+      );
+
+      const eventDetails = await Promise.all(eventDetailsPromises);
+
+      // Create HTML for each event
+      const eventsHTML = eventDetails
+        .map(event => `<div style="padding: 8px; margin: 3px 0;">• ${event.title || `Event ${event.id}`}</div>`)
+        .join("");
+
+      noEventsMessage.style.display = "none";
+      eventsList.innerHTML = eventsHTML || "<p>No events found.</p>";
+    }
   } catch (error) {
-    console.error("Error saving profile:", error);
+    console.error("Error loading registered events:", error);
+    // Don't show alert for events - just log the error
   }
 }
 
 // Run on page load
-window.onload = loadProfile;
+window.addEventListener("load", () => {
+  loadProfile();
+  loadRegisteredEvents();
+});
 
 </script>
 

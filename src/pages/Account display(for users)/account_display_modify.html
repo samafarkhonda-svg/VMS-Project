@@ -17,12 +17,10 @@
     </div>
 
     <h2>Profile Photo</h2>
-
     <div class="photo-box">
       <img id="profileImage" src="images/profile.png" alt="Profile">
     </div>
 
-    <button class="change-photo">Change Photo</button>
   </div>
 
   <!-- RIGHT PANEL -->
@@ -81,6 +79,12 @@
         <textarea id="bio"></textarea>
       </div>
 
+      <div class="field full">
+        <label>Registered Events</label>
+        <div id="registeredEventsList" style="padding: 12px; border-radius: 10px; min-height: 60px; background: #e6c68b;">
+          <p id="noEventsMessage">No events registered yet.</p>
+        </div>
+      </div>
 
       <div class="submit-row">
 	<!-- Pressing the button saves changes -->
@@ -99,6 +103,9 @@
 async function loadProfile() {
   try {
     const response = await fetch("http://localhost:8080/api/profile");
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     const data = await response.json();
 
     document.getElementById("firstName").value = data.firstName || "";
@@ -119,14 +126,13 @@ async function loadProfile() {
 
   } catch (error) {
     console.error("Error loading profile:", error);
+    alert("Failed to load profile. Please try again.");
   }
 }
 
 // Save profile to backend
-async function saveProfile() 
-{
-  const profile = 
-  {
+async function saveProfile() {
+  const profile = {
     firstName: document.getElementById("firstName").value,
     lastName: document.getElementById("lastName").value,
     email: document.getElementById("email").value,
@@ -141,29 +147,77 @@ async function saveProfile()
 
   try 
   {
-    await fetch("http://localhost:8080/api/profile", 
+    const response = await fetch("http://localhost:8080/api/profile", 
     {
       method: "POST",
-      headers: 
-      {
+      headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(profile)
     });
 
-    alert("Profile saved!");
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    alert("Profile saved successfully!");
     window.location.href = "account_display.html";
 
-    } 
-    catch (error) 
-    {
-        console.error("Error saving profile:", error);
+  } 
+  catch (error) 
+  {
+    console.error("Error saving profile:", error);
+    alert("Failed to save profile. Please try again.");
+  }
+}
+
+// Load registered events from backend
+async function loadRegisteredEvents() {
+  try {
+    const response = await fetch("http://localhost:8080/api/events/registered");
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    const data = await response.json();
+    const eventIds = data.eventIds || [];
+
+    // Fetch event details for the registered events
+    if (eventIds.length > 0) {
+      const eventsList = document.getElementById("registeredEventsList");
+      const noEventsMessage = document.getElementById("noEventsMessage");
+
+      // Fetch details for each event
+      const eventDetailsPromises = eventIds.map(eventId =>
+        fetch(`http://localhost:8080/api/events/${eventId}`)
+          .then(res => res.json())
+          .catch(err => {
+            console.error(`Error fetching event ${eventId}:`, err);
+            return { id: eventId, title: `Event ${eventId}` };
+          })
+      );
+
+      const eventDetails = await Promise.all(eventDetailsPromises);
+
+      // Create HTML for each event
+      const eventsHTML = eventDetails
+        .map(event => `<div style="padding: 8px; margin: 5px 0; background-color: #fff; border-left: 4px solid #ff9800; border-radius: 3px;">• ${event.title || `Event ${event.id}`}</div>`)
+        .join("");
+
+      noEventsMessage.style.display = "none";
+      eventsList.innerHTML = eventsHTML || "<p>No events found.</p>";
+    }
+  } catch (error) {
+    console.error("Error loading registered events:", error);
+    // Don't show alert for events - just log the error
+  }
 }
 
 // Run on page load
-window.onload = loadProfile;
-
+window.addEventListener("load", () => 
+{
+  loadProfile();
+  loadRegisteredEvents();
+});
 </script>
 
 </body>

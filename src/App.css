@@ -232,7 +232,7 @@ button{
 }
 
 .header-title {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -245,7 +245,6 @@ button{
   gap: 15px;
   align-items: center;
   font-size: 14px;
-  background-color: #ddd;
 }
 
 .footer-title {
@@ -255,6 +254,15 @@ button{
 .account-management-wrapper{
   display: flex;
   flex-direction: row;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.main-content {
+  flex: 1;
 }
 
 .left-side{

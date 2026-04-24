@@ -51,15 +51,15 @@ function App() {
     <div className="app-container">
 
       <NavbarLogo />
-
-      <Routes>
-        <Route path="/" element={<SignupPage />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/details" element={<Details />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/confirmation" element={<Confirmation />} />
-      </Routes>
-
+        <main className="main-content">
+        <Routes>
+          <Route path="/" element={<SignupPage />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/details" element={<Details />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/confirmation" element={<Confirmation />} />
+        </Routes>
+        </main>
       <Footer />
 
     </div>

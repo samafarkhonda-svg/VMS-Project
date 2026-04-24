@@ -4,8 +4,8 @@ import Footer from './components/footer'
 
 function App() {
   return (
-    <>
-      <NavbarLogo></NavbarLogo>
+    <div className="page">
+      <NavbarLogo />
 
       <div className="introduction">
         <p className="welcome">
@@ -32,8 +32,8 @@ function App() {
         </div>
       </div>
 
-      <Footer></Footer>
-    </>
+      <Footer />
+    </div>
   )
 }
 

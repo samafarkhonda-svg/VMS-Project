@@ -7,13 +7,22 @@
 }
 
 #root {
-  width: 100%;
-  max-width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-body{
-  width: 100%;
-  overflow: hidden;
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
 }
 
 h1{
@@ -239,15 +248,13 @@ button{
 
 /* Forget css removed */
 
-
 .footer {
-  position: absolute;
-  bottom: 25px;
-  left: 35px;
   display: flex;
   gap: 18px;
   align-items: center;
   font-size: 15px;
+  margin-top: auto;
+  padding: 25px 35px;
 }
 
 .footer-title {

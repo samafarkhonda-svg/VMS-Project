@@ -35,7 +35,7 @@ function SignupPage() {
           <button
             type="button"
             className="sign-up"
-            onClick={() => navigate("/events")}
+            onClick={() => navigate("/Confirmation")}
           >
             Sign Up
           </button>

@@ -5,12 +5,12 @@ import Events from "./pages/Events"
 import Details from "./pages/Details"
 import Profile from "./pages/Profile"
 import Confirmation from "./pages/Confirmation"
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
-import Logout from "./pages/Logout";
+import Login from "./pages/Login"
+import Dashboard from "./pages/Dashboard"
+import Logout from "./pages/Logout"
 import { Routes, Route, useNavigate } from "react-router-dom"
 
-// 🔹 Signup Page
+// Signup Page
 function SignupPage() {
   const navigate = useNavigate()
 
@@ -38,7 +38,7 @@ function SignupPage() {
           <button
             type="button"
             className="sign-up"
-            onClick={() => navigate("/events")}
+            onClick={() => navigate("/confirmation")}
           >
             Sign Up
           </button>
@@ -48,26 +48,25 @@ function SignupPage() {
   )
 }
 
-// 🔹 MAIN APP
 function App() {
   return (
     <div className="app-container">
-
       <NavbarLogo />
 
-      <Routes>
-        <Route path="/" element={<SignupPage />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/details" element={<Details />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="/confirmation" element={<Confirmation />} />
-      </Routes>
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<SignupPage />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/details" element={<Details />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/confirmation" element={<Confirmation />} />
+        </Routes>
+      </main>
 
       <Footer />
-
     </div>
   )
 }

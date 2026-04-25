@@ -13,7 +13,6 @@
 
 body {
   width: 100%;
-  overflow-x: hidden;
 }
 
 h1{
@@ -126,7 +125,9 @@ button{
   max-width: 60vw;
   margin: 0 auto;
   margin-top: 50px;
+  text-align: left;
 }
+
 
 .margin-10{
   margin-top: 10px;
@@ -233,7 +234,7 @@ button{
 }
 
 .header-title {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -255,6 +256,15 @@ button{
 .account-management-wrapper{
   display: flex;
   flex-direction: row;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.main-content {
+  flex: 1;
 }
 
 .left-side{

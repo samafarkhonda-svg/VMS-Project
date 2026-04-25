@@ -5,6 +5,9 @@ import Events from "./pages/Events"
 import Details from "./pages/Details"
 import Profile from "./pages/Profile"
 import Confirmation from "./pages/Confirmation"
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Logout from "./pages/Logout";
 import { Routes, Route, useNavigate } from "react-router-dom"
 
 // 🔹 Signup Page
@@ -57,6 +60,9 @@ function App() {
         <Route path="/events" element={<Events />} />
         <Route path="/details" element={<Details />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
         <Route path="/confirmation" element={<Confirmation />} />
       </Routes>
 

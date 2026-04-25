@@ -20,3 +20,21 @@ export async function loginUser(formData) {
     };
   }
 }
+
+export const logoutUser = async () => {
+  try {
+    const response = await fetch("http://localhost:3000/logout", {
+      method: "POST",
+      credentials: "include"
+    });
+
+    if (!response.ok) {
+      throw new Error("Logout failed");
+    }
+
+    return await response.text();
+  } catch (error) {
+    console.error("Error during logout:", error);
+    throw error;
+  }
+};

@@ -32,7 +32,7 @@ function Login() {
       if (data.success) {
         alert("Login successful!");
         localStorage.setItem("user", JSON.stringify(data.user));
-        navigate("/dashboard");
+        navigate("/confirmation");
       } else {
         alert(data.message || "Login failed.");
       }

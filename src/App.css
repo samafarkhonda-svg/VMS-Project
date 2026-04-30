@@ -8,7 +8,7 @@
 
 #root {
   width: 100%;
-  max-width: 100%;
+  
 }
 
 body {
@@ -319,8 +319,10 @@ opacity: 0.9;
 
 /* MAIN CONTAINER */
 .events-container {
-  width: 80%;
-  margin: 40px auto;
+  background-color: #f5f5f5;
+  color: black;
+  min-height: 100vh;
+  padding: 20px;
 }
 
 /* EACH EVENT ROW */
@@ -452,8 +454,20 @@ opacity: 0.9;
   border-radius: 12px;
   cursor: pointer;
 }
-
-
+.light-page {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  color: black;
+}
+.details-page {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  color: black;
+}
+body {
+  margin: 0;
+  background-color: #f5f5f5;
+}
 /* =========================
    LOGOUT PAGE ONLY
 ========================= */

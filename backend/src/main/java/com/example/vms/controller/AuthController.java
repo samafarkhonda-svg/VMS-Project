@@ -28,6 +28,8 @@ public class AuthController {
         this.userRepository = userRepository;
     }
 
+    @PostMapping("/signup") //Dima - "I'll add signup part in the next week"
+
     // This method handles login requests from the frontend
     // It listens to POST requests at /api/auth/login
     @PostMapping("/login")

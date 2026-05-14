@@ -35,7 +35,7 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> signup(@RequestBody User user) {
 
-        // Check all fields are filled
+        //check that fields aren't empty
         if (user.getFirstName() == null || user.getFirstName().isBlank() ||
             user.getLastName() == null || user.getLastName().isBlank() ||
             user.getUsername() == null || user.getUsername().isBlank() ||
@@ -46,18 +46,19 @@ public class AuthController {
                     .body(new AuthResponse(false, "All fields are required."));
         }
 
-        /*//checks if email is in the db
+        //check if email already exists
         if (userRepository.findByEmail(user.getEmail()) != null) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(new AuthResponse(false, "Email already in use."));
         }
 
-        //checks if the username is in db
+        //check if username already exists
         if (userRepository.findByUsername(user.getUsername()) != null) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(new AuthResponse(false, "Username already in use."));
-        }*/
+        }
 
+        //send verification code to their email
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         emailService.sendVerificationCode(user.getEmail(), user.getFirstName());
@@ -121,7 +122,7 @@ public class AuthController {
         session.setAttribute("userId", user.getUserId());
         session.setAttribute("username", user.getUsername());
 
-        //create safe user object (do NOT send password to frontend)
+        // Create safe user object (do NOT send password to frontend)
         Map<String, Object> safeUser = new HashMap<>();
         safeUser.put("userId", user.getUserId());
         safeUser.put("firstName", user.getFirstName());
@@ -129,9 +130,8 @@ public class AuthController {
         safeUser.put("username", user.getUsername());
         safeUser.put("email", user.getEmail());
 
-        //send verification code to their email
+        // Send verification code to their email
         emailService.sendVerificationCode(user.getEmail(), user.getFirstName());
-
 
         return ResponseEntity.ok(new AuthResponse(true, "Login successful.", safeUser));
     }

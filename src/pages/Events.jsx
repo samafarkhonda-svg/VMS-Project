@@ -146,7 +146,9 @@ function Events() {
       {events.map((event) => (
         <div key={event.eventId}className="event-row">
           <div className="event-left">
-            <p>{event.description}</p>
+            <h2>{event.eventName}</h2>
+            
+            <p className="event-description">{event.description}</p>
           </div>
 
           <div className="event-right">

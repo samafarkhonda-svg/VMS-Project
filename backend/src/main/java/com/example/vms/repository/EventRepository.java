@@ -21,8 +21,8 @@ public class EventRepository
     // Get all events from the database
     public List<Event> findAllEvents() 
     {
-        String sql = "SELECT event_id, event_name, description, event_date, location, user_id " +
-                     "FROM events";
+        String sql = "SELECT event_id, event_name, description, event_date, location, user_id, image " +
+             "FROM events";
         
         return jdbcTemplate.query(
             sql,
@@ -33,7 +33,7 @@ public class EventRepository
     // Get a specific event by ID
     public Event findById(int eventId) 
     {
-        String sql = "SELECT event_id, event_name, description, event_date, location, user_id " +
+        String sql = "SELECT event_id, event_name, description, event_date, location, user_id, image " +
                      "FROM events WHERE event_id = ?";
         
         List<Event> events = jdbcTemplate.query(
@@ -107,6 +107,12 @@ public class EventRepository
         event.setEventDate(rs.getString("event_date"));
         event.setLocation(rs.getString("location"));
         event.setUserId(rs.getInt("user_id"));
+        event.setImage(rs.getString("image"));
         return event;
     }
+    public void unregisterUserFromEvent(int eventId, int userId) 
+    {
+    String sql = "DELETE FROM event_registrations WHERE event_id = ? AND user_id = ?";
+    jdbcTemplate.update(sql, eventId, userId);
+}
 }

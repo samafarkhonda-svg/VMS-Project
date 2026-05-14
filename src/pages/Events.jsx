@@ -12,7 +12,8 @@ const defaultEvents = [
     location: "Sacramento, CA",
     description:
       "Help us fight hunger in our community by lending a few hours of your time at the local food bank. Volunteers will sort and pack food donations, assist with distribution, and help ensure families in need receive essential supplies. This is a meaningful opportunity to make a direct and lasting impact on the lives of others.",
-    image: "https://images.unsplash.com/photo-1542831371-d531d36971e6",
+    image: "/food-drive-volunteer.png",
+    isRegistered: false,
   },
   {
     id: "park",
@@ -22,7 +23,8 @@ const defaultEvents = [
     location: "Elk Grove Park",
     description:
       "Join us for a hands-on effort to restore and beautify our local parks. Volunteers will help collect litter, clear overgrown trails, and plant greenery across the grounds. Together, we can create cleaner, safer, and more enjoyable spaces for our community.",
-    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+    image: "/Community-park-cleanup.png",
+    isRegistered: false,
   },
   {
     id: "tutor",
@@ -32,97 +34,132 @@ const defaultEvents = [
     location: "Local School",
     description:
       "Make a lasting difference in a child's life by volunteering as a tutor in our after school program. Volunteers will work one-on-one or in small groups with students, helping them improve in subjects like math, reading, and science. No teaching experience is required, just patience, encouragement, and a willingness to help.",
-    image: "https://images.unsplash.com/photo-1588072432836-e10032774350",
+    image: "/After-school-tutoring.png",
+    isRegistered: false,
   },
 ]
 
 function Events() {
   const navigate = useNavigate()
-  const [events, setEvents] = useState(defaultEvents)
+
+  const [events, setEvents] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
   useEffect(() => {
-  const verifyLogin = async () => {
-    const data = await checkAuth();
+    const verifyLogin = async () => {
+      const data = await checkAuth()
 
-    if (!data.success) {
-      navigate("/login");
+      if (!data.success) {
+        navigate("/login")
+        return
+      }
+
+      fetchEvents()
     }
-    // fetch events only if authorized
-    fetchEvents();
-  };
 
-  verifyLogin();
-}, [navigate]);
+    verifyLogin()
+  }, [navigate])
 
   const fetchEvents = async () => {
     try {
       setLoading(true)
-      const response = await fetch("http://localhost:8080/api/events", {
-        credentials: "include"
-      })
+
+      const response = await fetch(
+        "http://localhost:8080/api/events",
+        {
+          credentials: "include",
+        }
+      )
 
       if (!response.ok) {
         throw new Error("Failed to fetch events")
       }
 
       const data = await response.json()
-      if (Array.isArray(data) && data.length > 0) {
-        setEvents(data.map(mapBackendEvent))
-      }
+
+      setEvents(data)
       setError(null)
     } catch (err) {
-      console.error("Error fetching events:", err)
-      setError("Failed to load events from the server. Showing default events.")
+      console.error(err)
+      setError("Failed to load events")
     } finally {
       setLoading(false)
     }
   }
 
-  const mapBackendEvent = (event) => ({
-    id: event.eventId?.toString() || event.id,
-    eventId: event.eventId,
-    title: event.eventName || event.title,
-    date: event.eventDate || event.date,
-    time: event.time || "Time TBD",
-    location: event.location || event.location,
-    description: event.description || event.description,
-    image: event.image || "https://images.unsplash.com/photo-1552664730-d307ca884978",
-  })
+  const toggleRegistration = async (eventId, isRegistered) => {
+    try {
+      const response = await fetch(
+        isRegistered
+          ? `http://localhost:8080/api/register/${eventId}`
+          : "http://localhost:8080/api/register",
+        {
+          method: isRegistered ? "DELETE" : "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: isRegistered
+            ? null
+            : JSON.stringify({ eventId }),
+        }
+      )
+
+      if (!response.ok) {
+        throw new Error("Registration update failed")
+      }
+
+      setEvents((prevEvents) =>
+        prevEvents.map((event) =>
+          event.eventId === eventId
+            ? {
+                ...event,
+                isRegistered: !isRegistered,
+              }
+            : event
+        )
+      )
+    } catch (err) {
+      console.error(err)
+      alert("Failed to update registration")
+    }
+  }
 
   if (loading) {
-    return <div className="events-container"><p>Loading events...</p></div>
+    return (
+      <div className="events-container">
+        <p>Loading events...</p>
+      </div>
+    )
   }
 
   return (
     <div className="events-container">
-      {error && <p style={{ color: "orange" }}>{error}</p>}
+      {error && (
+        <p style={{ color: "orange" }}>
+          {error}
+        </p>
+      )}
 
       {events.map((event) => (
-        <div key={event.eventId || event.id} className="event-row">
-
-          {/* LEFT TEXT */}
+        <div key={event.eventId}className="event-row">
           <div className="event-left">
-            <h2>{event.title}</h2>
             <p>{event.description}</p>
-            <p><strong>Date:</strong> {event.date}</p>
-            <p><strong>Time:</strong> {event.time}</p>
-            <p><strong>Location:</strong> {event.location}</p>
           </div>
 
-          {/* RIGHT SIDE */}
           <div className="event-right">
-            <img src={event.image} alt={event.title} />
+            <img src={event.image}alt={event.eventName}/>
 
-            <button
-              className="event-btn"
-              onClick={() => navigate(`/details/${event.eventId || event.id}`)}
-            >
-              Register
+            <button className={`event-btn ${event.isRegistered? "registered-btn": ""}`}onClick={() =>toggleRegistration(event.eventId,event.isRegistered)}>
+              {event.isRegistered ? "Unregister": "Register"}
+            </button>
+
+            <button className="details-btn"onClick={() =>navigate(`/details/${event.eventId}`)}>
+              View Details
             </button>
           </div>
-
         </div>
       ))}
     </div>

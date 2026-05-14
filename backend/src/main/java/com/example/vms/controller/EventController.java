@@ -43,6 +43,7 @@ public class EventController
                 eventMap.put("description", event.getDescription());
                 eventMap.put("eventDate", event.getEventDate());
                 eventMap.put("location", event.getLocation());
+                eventMap.put("image", event.getImage());
                 eventMap.put("isRegistered", registeredIds.contains(event.getEventId()));
                 eventsWithStatus.add(eventMap);
             }

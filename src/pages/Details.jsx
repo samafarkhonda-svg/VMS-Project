@@ -1,81 +1,111 @@
-import "../App.css";
+import "../App.css"
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 
 function Details() {
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const { id } = useParams()
+  const navigate = useNavigate()
 
-  const [event, setEvent] = useState(null);
+  const [event, setEvent] = useState(null)
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/events/${id}`)
-      .then((response) => response.json())
-      .then((data) => setEvent(data))
-      .catch((error) => console.error(error));
-  }, [id]);
-
-  function registerEvent() {
-    const user = JSON.parse(localStorage.getItem("user"));
-
-    if (!user) {
-      alert("Please log in first.");
-      return;
+    const fetchEvent = async () => {
+      try {
+        setLoading(true)
+        const response = await fetch(`http://localhost:8080/api/events/${id}`, {
+          credentials: "include"
+        })
+        const data = await response.json()
+        setEvent(data)
+        setIsRegistered(data.isRegistered || false)
+      } catch (err) {
+        console.error(err)
+      } finally {
+        setLoading(false)
+      }
     }
+    
+    fetchEvent()
+  }, [id])
 
-    fetch("http://localhost:8080/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        eventId: Number(id),
-        userName: user.username || user.email || user.id,
-      }),
-    })
-      .then((res) => res.text())
-      .then(() => navigate("/registration-success"))
-      .catch((err) => {
-        console.log(err);
-        alert("Registration failed");
-      });
+  const toggleRegistration = async () => {
+    try {
+      const response = await fetch(
+        isRegistered
+          ? `http://localhost:8080/api/register/${id}`
+          : "http://localhost:8080/api/register",
+        {
+          method: isRegistered ? "DELETE" : "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: isRegistered ? null : JSON.stringify({ eventId: Number(id) }),
+        }
+      )
+
+      if (!response.ok) {
+        throw new Error("Failed")
+      }
+
+      setIsRegistered(!isRegistered)
+      setEvent((prev) => ({
+        ...prev,
+        isRegistered: !prev.isRegistered,
+      }))
+    } catch (err) {
+      console.error(err)
+      alert("Request failed")
+    }
   }
 
-  if (!event) return <h2>Loading...</h2>;
+  if (loading || !event) {
+    return <h2>Loading...</h2>
+  }
 
   return (
     <div className="details-page">
       <div className="details-content">
         <img
           src={event.image}
-          alt={event.title}
+          alt={event.eventName}
           className="details-image"
         />
 
-        <h1>{event.title}</h1>
+        <h1>{event.eventName}</h1>
 
         <p>
-          <strong>Date:</strong> {event.eventDate}
+          <strong>Date:</strong>{" "}
+          {event.eventDate}
         </p>
 
         <p>
-          <strong>Time:</strong> {event.eventTime}
+          <strong>Time:</strong>{" "}
+          {event.eventTime}
         </p>
 
         <p>
-          <strong>Location:</strong> {event.location}
+          <strong>Location:</strong>{" "}
+          {event.location}
         </p>
 
         <p className="details-description">
           {event.description}
         </p>
 
-        <button className="details-btn" onClick={registerEvent}>
-          Register
+        <button
+          className={`details-btn ${
+            isRegistered ? "registered-btn" : ""
+          }`}
+          onClick={toggleRegistration}
+        >
+          {isRegistered ? "Unregister" : "Register"}
         </button>
       </div>
     </div>
-  );
+  )
 }
 
-export default Details;
+export default Details

@@ -20,7 +20,7 @@ function Navbar() {
                             <div className="navlinks"><a href="/partnerships">Partnerships</a></div>
                         </div>
                         <div className="rightalign">
-                            <div className="navlinksusername"><a href="/profile">{user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1).toLowerCase()}</a></div>
+                            <div className="navlinksusername"><a href="/profile">{user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1).toLowerCase() + " " + user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1).toLowerCase()}</a></div>
                             <a href="/logout"><div className="navbutton">Log Out</div></a>
                         </div>
                     </div>

@@ -5,7 +5,9 @@ import { checkAuth } from "../services/authService";
 
 function Profile() {
   const navigate = useNavigate()
-  
+  const [registeredEvents, setRegisteredEvents] = useState([]); 
+  const [loading, setLoading] = useState(true); 
+  const [profileData, setProfileData] = useState({}); 
   useEffect(() => {
   const verifyLogin = async () => {
     const data = await checkAuth();

@@ -189,7 +189,7 @@ function Profile() {
 
             <div className="field full">  
               <label>Registered Events</label>
-              <div className="registeredEventsList">
+              <div id="registeredEventsList" className="registeredEventsList">
                 <p id="noEventsMessage">No events registered yet.</p>
               </div>
             </div>

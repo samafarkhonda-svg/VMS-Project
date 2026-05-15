@@ -220,7 +220,7 @@ function ProfileModify() {
 
             <div className="field full">  
               <label>Registered Events</label>
-              <div id="registeredEventsList" className="registeredEventsList">
+              <div id="registeredEventsList">
                 <p id="noEventsMessage">No events registered yet.</p>
               </div>
             </div>

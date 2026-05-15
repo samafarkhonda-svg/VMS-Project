@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:8080/api/auth";
+const API_BASE_URL = "http://https://vms-backend-production.up.railway.app/api/auth";
 
 //Ouiam- handles user login request (authentication)
 export async function loginUser(formData) {

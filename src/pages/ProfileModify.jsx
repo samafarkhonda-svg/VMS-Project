@@ -21,7 +21,7 @@ function ProfileModify() {
 
   async function loadProfile() {
     try {
-      const response = await fetch("http://localhost:8080/api/profile", {
+      const response = await fetch("http://https://vms-backend-production.up.railway.app/api/profile", {
         credentials: "include"
       });
       if (!response.ok) {
@@ -64,7 +64,7 @@ function ProfileModify() {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/api/profile", {
+      const response = await fetch("http://https://vms-backend-production.up.railway.app/api/profile", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -88,7 +88,7 @@ function ProfileModify() {
   async function loadRegisteredEvents() {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8080/api/events/registered", {
+      const response = await fetch("http://https://vms-backend-production.up.railway.app/api/events/registered", {
         credentials: "include"
       });
       if (!response.ok) {
@@ -102,7 +102,7 @@ function ProfileModify() {
         const noEventsMessage = document.getElementById("noEventsMessage");
 
         const eventDetailsPromises = eventIds.map(eventId =>
-          fetch(`http://localhost:8080/api/events/${eventId}`, {
+          fetch(`http://https://vms-backend-production.up.railway.app/api/events/${eventId}`, {
             credentials: "include"
           })
             .then(res => res.json())
@@ -137,7 +137,7 @@ function ProfileModify() {
 
   const handleSignOut = async () => {
     try {
-      await fetch("http://localhost:8080/api/auth/logout", {
+      await fetch("http://https://vms-backend-production.up.railway.app/api/auth/logout", {
         method: "POST",
         credentials: "include"
       });

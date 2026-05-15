@@ -21,7 +21,7 @@ function Details() {
         setLoading(true)
 
         const response = await fetch(
-          `http://localhost:8080/api/events/${id}`,
+          `http://https://vms-backend-production.up.railway.app/api/events/${id}`,
           {
             credentials: "include",
           }
@@ -60,8 +60,8 @@ function Details() {
       const response = await fetch(
 
         isRegistered
-          ? `http://localhost:8080/api/events/register/${id}`
-          : "http://localhost:8080/api/events/register",
+          ? `http://https://vms-backend-production.up.railway.app/api/events/register/${id}`
+          : "http://https://vms-backend-production.up.railway.app/api/events/register",
 
         {
           method: isRegistered ? "DELETE" : "POST",

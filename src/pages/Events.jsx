@@ -42,7 +42,7 @@ function Events() {
       setLoading(true)
 
       const response = await fetch(
-        "http://localhost:8080/api/events",
+        "http://https://vms-backend-production.up.railway.app/api/events",
         {
           credentials: "include",
         }

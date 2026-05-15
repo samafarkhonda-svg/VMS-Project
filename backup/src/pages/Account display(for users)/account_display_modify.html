@@ -98,7 +98,7 @@
 // Load profile from backend
 async function loadProfile() {
   try {
-    const response = await fetch("http://localhost:8080/api/profile");
+    const response = await fetch("http://https://vms-backend-production.up.railway.app/api/profile");
     const data = await response.json();
 
     document.getElementById("firstName").value = data.firstName || "";
@@ -141,7 +141,7 @@ async function saveProfile()
 
   try 
   {
-    await fetch("http://localhost:8080/api/profile", 
+    await fetch("http://https://vms-backend-production.up.railway.app/api/profile", 
     {
       method: "POST",
       headers: 

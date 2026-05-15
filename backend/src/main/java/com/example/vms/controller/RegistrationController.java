@@ -1,7 +1,9 @@
 package com.example.vms.controller;
 
+import com.example.vms.service.EmailService;
 import com.example.vms.model.Registration;
 import com.example.vms.repository.RegistrationRepository;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,18 +13,32 @@ import java.util.List;
         "http://localhost:5174",
         "http://localhost:5179"
 })
+
 @RestController
 @RequestMapping("/api")
+
 public class RegistrationController {
 
     private final RegistrationRepository registrationRepository;
 
-    public RegistrationController(RegistrationRepository registrationRepository) {
-        this.registrationRepository = registrationRepository;
+    private final EmailService emailService;
+
+    public RegistrationController(
+            RegistrationRepository registrationRepository,
+            EmailService emailService
+    ) {
+
+        this.registrationRepository =
+                registrationRepository;
+
+        this.emailService =
+                emailService;
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody Registration registration) {
+    public String register(
+            @RequestBody Registration registration
+    ) {
 
         boolean alreadyRegistered =
                 registrationRepository.existsByUserNameAndEventId(
@@ -36,6 +52,8 @@ public class RegistrationController {
 
         registrationRepository.save(registration);
 
+        // SEND EMAIL
+        
         return "Registered successfully";
     }
 
@@ -57,6 +75,7 @@ public class RegistrationController {
     public List<Registration> getUserRegistrations(
             @PathVariable String username
     ) {
+
         return registrationRepository.findByUserName(username);
     }
 }

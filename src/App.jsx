@@ -175,7 +175,7 @@ function App() {
           <Route path="/logout" element={<Logout />} />
           <Route path="/confirmation" element={<Confirmation />} />
           <Route path="/login-confirmation" element={<LoginConfirmation />} />
-          <Route path="/registration-success" element={<RegistrationSuccess />} />
+          <Route path="/event-registration-confirmation" element={<RegistrationSuccess />}/>
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/forgot-password-sent" element={<ForgotPasswordSent />} />
           <Route path="/forgot-password-entry" element={<ForgotPasswordEntry />} />

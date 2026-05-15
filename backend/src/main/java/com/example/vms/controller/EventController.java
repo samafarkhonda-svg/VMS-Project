@@ -2,7 +2,10 @@ package com.example.vms.controller;
 
 import com.example.vms.model.Event;
 import com.example.vms.repository.EventRepository;
+import com.example.vms.service.EmailService;
+
 import jakarta.servlet.http.HttpSession;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -25,15 +28,22 @@ import java.util.Map;
 public class EventController {
 
     private final EventRepository eventRepository;
+
     private final JdbcTemplate jdbcTemplate;
+
+    private final EmailService emailService;
 
     public EventController(
             EventRepository eventRepository,
-            JdbcTemplate jdbcTemplate
+            JdbcTemplate jdbcTemplate,
+            EmailService emailService
     ) {
 
         this.eventRepository = eventRepository;
+
         this.jdbcTemplate = jdbcTemplate;
+
+        this.emailService = emailService;
     }
 
     // GET ALL EVENTS
@@ -178,6 +188,17 @@ public class EventController {
                     );
 
             if (result > 0) {
+
+               Event event =
+        eventRepository.findById(eventId);
+
+emailService.sendEventRegistrationEmail(
+        "samafarkhonda@gmail.com",
+        "Volunteer",
+        event.getEventName(),
+        event.getLocation(),
+        event.getEventTime()
+);
 
                 return ResponseEntity.ok(
                         Map.of(

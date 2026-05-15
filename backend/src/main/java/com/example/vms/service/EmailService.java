@@ -57,4 +57,36 @@ public class EmailService {
         //code was not correct
         return false;
     }
+    public void sendEventRegistrationEmail(
+        String email,
+        String firstName,
+        String eventName,
+        String location,
+        String time
+) {
+
+    SimpleMailMessage message =
+            new SimpleMailMessage();
+
+    message.setTo(email);
+
+    message.setSubject(
+            "Volunteer Event Registration Confirmation"
+    );
+
+    message.setText(
+
+            "Hi " + firstName + ",\n\n"
+
+            + "You have successfully registered for:\n\n"
+
+            + "Event: " + eventName + "\n"
+            + "Location: " + location + "\n"
+            + "Time: " + time + "\n\n"
+
+            + "Thank you for volunteering with VMS!"
+    );
+
+    mailSender.send(message);
+}
 }

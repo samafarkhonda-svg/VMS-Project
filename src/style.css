@@ -45,7 +45,6 @@ body {
 }
 
 .photo-box {
-  background: white;
   padding: 20px;
   margin: 20px 0;
 }
@@ -82,10 +81,32 @@ body {
 
 /* Profile Photo Section */
 .profile-photo-section {
-  background: #fFA500;
+  background: rgba(255, 165, 0, 0.6);
   text-align: center;
   padding: 30px 20px;
 }
+
+.profile-photo-container {
+  background: rgba(255, 165, 0, 0.6);
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.profile-photo-container .photo-box {
+  background: white;
+  padding: 20px;
+  margin: 0 auto;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.profile-photo-container .photo-box img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  display: block;
+}
+
 
 .profile-photo-section h2 {
   margin: 0 0 20px 0;

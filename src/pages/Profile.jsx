@@ -117,7 +117,7 @@ function Profile() {
       <div className="profile-photo-container">
         <h2>Profile Photo</h2>
         <div className="photo-box">
-          <img id="profileImage" src="images/profile.png" alt="Profile" />
+          <img id="profileImage" src="./public/profile-placeholder.jpg" alt="Profile" />
         </div>
       </div>
 

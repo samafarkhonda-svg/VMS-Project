@@ -1,6 +1,6 @@
 import '../style.css'
 import { useNavigate } from "react-router-dom"
-import { useEffect } from "react";
+import { useEffect, useState } from "react"; 
 import { checkAuth } from "../services/authService";
 
 function Profile() {
@@ -8,20 +8,32 @@ function Profile() {
   const [registeredEvents, setRegisteredEvents] = useState([]); 
   const [loading, setLoading] = useState(true); 
   const [profileData, setProfileData] = useState({}); 
+  
   useEffect(() => {
-  const verifyLogin = async () => {
-    const data = await checkAuth();
-
-    if (!data.success) {
-      navigate("/login");
-    }
-  };
-
-  verifyLogin();
-}, [navigate]);
+    const verifyLogin = async () => {
+      const data = await checkAuth();
+      if (!data.success) {
+        navigate("/login");
+      }
+    };
+    verifyLogin();
+  }, [navigate]);
 
   const modifyProfile = async () => {
     navigate("/profile-modify")
+  }
+
+  // ✅ ADDED: Sign out handler
+  const handleSignOut = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/api/logout", {
+        method: "POST",
+        credentials: "include"
+      });
+      navigate("/login");
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
   }
 
   // Load profile from backend
@@ -34,8 +46,8 @@ function Profile() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
+      setProfileData(data);
 
-      // Use .value for input elements (not .textContent)
       document.getElementById("firstName").value = data.firstName || "";
       document.getElementById("lastName").value = data.lastName || "";
       document.getElementById("email").value = data.email || "";
@@ -47,7 +59,6 @@ function Profile() {
       document.getElementById("zip").value = data.zip || "";
       document.getElementById("bio").value = data.bio || "";
 
-      // Optional: load profile image
       if (data.imageUrl) {
         document.getElementById("profileImage").src = data.imageUrl;
       }
@@ -59,22 +70,25 @@ function Profile() {
 
   // Load registered events from backend
   async function loadRegisteredEvents() {
+    setLoading(true);
     try {
-      const response = await fetch("http://localhost:8080/api/events/registered");
+      const response = await fetch("http://localhost:8080/api/events/registered", {
+        credentials: "include"
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
       const eventIds = data.eventIds || [];
 
-      // Fetch event details for the registered events
       if (eventIds.length > 0) {
         const eventsList = document.getElementById("registeredEventsList");
         const noEventsMessage = document.getElementById("noEventsMessage");
 
-        // Fetch details for each event
         const eventDetailsPromises = eventIds.map(eventId =>
-          fetch(`http://localhost:8080/api/events/${eventId}`)
+          fetch(`http://localhost:8080/api/events/${eventId}`, {
+            credentials: "include"
+          })
             .then(res => res.json())
             .catch(err => {
               console.error(`Error fetching event ${eventId}:`, err);
@@ -84,108 +98,108 @@ function Profile() {
 
         const eventDetails = await Promise.all(eventDetailsPromises);
 
-        // Create HTML for each event
         const eventsHTML = eventDetails
           .map(event => `<div style="padding: 8px; margin: 3px 0;">• ${event.title || `Event ${event.id}`}</div>`)
           .join("");
 
-        noEventsMessage.style.display = "none";
-        eventsList.innerHTML = eventsHTML || "<p>No events found.</p>";
+        if (noEventsMessage) noEventsMessage.style.display = "none";
+        if (eventsList) eventsList.innerHTML = eventsHTML || "<p>No events found.</p>";
+      } else {
+        setRegisteredEvents([]);
       }
     } catch (error) {
       console.error("Error loading registered events:", error);
-      // Don't show alert for events - just log the error
+    } finally {
+      setLoading(false);
     }
   }
 
-  // Run on page load
-  window.addEventListener("load", () => {
+  // ✅ FIXED: Use useEffect instead of window.addEventListener
+  useEffect(() => {
     loadProfile();
     loadRegisteredEvents();
-  });
+  }, []);
 
   return (
     <div>
-      <span class="account-management-wrapper">
-        <div class="sidebar">
-          <div class="top-bar">
-            <button class="back-btn">←</button>
-            <span class="signout">sign out</span>
+      <span className="account-management-wrapper">
+        <div className="sidebar"> 
+          <div className="top-bar"> 
+            <button className="back-btn" onClick={() => navigate(-1)}>←</button> 
+            <span className="signout" onClick={handleSignOut}>sign out</span>  
           </div>
           <h2>Profile Photo</h2>
-          <div class="photo-box">
+          <div className="photo-box"> 
             <img id="profileImage" src="images/profile.png" alt="Profile" />
           </div>
         </div>
-        <div class="form-area">
+        <div className="form-area">
           <form>
-            <div class="row">
-              <div class="field">
+            <div className="row">  
+              <div className="field">  
                 <label>First Name</label>
-                <input type="text" id="firstName" readonly />
+                <input type="text" id="firstName" readOnly />  
               </div>
-              <div class="field">
+              <div className="field">  
                 <label>Last Name</label>
-                <input type="text" id="lastName" readonly />
+                <input type="text" id="lastName" readOnly />
               </div>
             </div>
 
-            <div class="field full">
+            <div className="field full">  
               <label>Email Address</label>
-              <input type="text" id="email" readonly />
+              <input type="text" id="email" readOnly /> 
             </div>
 
-            <div class="row">
-              <div class="field">
+            <div className="row"> 
+              <div className="field">  
                 <label>Phone Number</label>
-                <input type="text" id="phone" readonly />
+                <input type="text" id="phone" readOnly />  
               </div>
-              <div class="field">
+              <div className="field">  
                 <label>Birth Date</label>
-                <input type="text" id="birthDate" readonly />
+                <input type="text" id="birthDate" readOnly /> 
               </div>
             </div>
-            <div class="field full">
+            <div className="field full">  
               <label>Address</label>
-              <input type="text" id="address" readonly />
+              <input type="text" id="address" readOnly />
             </div>
-            <div class="row">
-              <div class="field">
+            <div className="row">  
+              <div className="field">  
                 <label>City</label>
-                <input type="text" id="city" readonly />
+                <input type="text" id="city" readOnly />
               </div>
-              <div class="field">
+              <div className="field">  
                 <label>State</label>
-              <input type="text" id="state" readonly />
+                <input type="text" id="state" readOnly /> 
               </div>
-              <div class="field">
+              <div className="field">  
                 <label>Zip Code</label>
-            <input type="text" id="zip" readonly />
+                <input type="text" id="zip" readOnly />
               </div>
             </div>
 
-            <div class="field full">
+            <div className="field full">  
               <label>Bio</label>
-              <textarea id="bio" readonly></textarea>
+              <textarea id="bio" readOnly></textarea> 
             </div>
 
-            
-            <div class="field full">
+            <div className="field full">  
               <label>Registered Events</label>
               <div id="registeredEventsList" style={{padding: 12, borderRadius: 10, minHeight: 60, background: '#e6c68b'}}>
                 <p id="noEventsMessage">No events registered yet.</p>
               </div>
             </div>
 
-            <div class="submit-row">
-              <button class="save-btn" onClick={modifyProfile}>
-              Edit Profile
+            <div className="submit-row">  
+              <button className="save-btn" onClick={modifyProfile}>  
+                Edit Profile
               </button>
             </div>
           </form>
         </div>
       </span>
-      
     </div>
   )
 }

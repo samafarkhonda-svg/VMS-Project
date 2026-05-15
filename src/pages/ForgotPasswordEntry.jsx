@@ -12,6 +12,7 @@ function ForgotPasswordEntry(){
     // retrieving the token from the url
     const [params] = useSearchParams();
     const token = params.get('token');
+    const email = params.get('email');
     const [password1, setPassword1] = useState("")
     const [password2, setPassword2] = useState("")
 
@@ -78,7 +79,7 @@ function ForgotPasswordEntry(){
 
     useEffect(() => {
         try {
-            const tokenPromise = checkToken("masonscarvie@csus.edu", token);
+            const tokenPromise = checkToken(email, token);
             tokenPromise.then((result) => {
                 console.log("Result:", result);
                 if (result.success == true) {

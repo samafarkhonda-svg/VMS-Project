@@ -35,7 +35,7 @@ public class EmailServiceURL {
         //saves the code to the database
         userRepository.saveResetToken(email, token);
 
-        String url = "http://localhost:5173/forgot-password-entry?token=" + token;
+        String url = "http://localhost:5173/forgot-password-entry?email=" + email + "&token=" + token;
         System.out.println(url);
 
         //creates the email for the user

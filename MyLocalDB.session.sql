@@ -1,7 +1,6 @@
 CREATE TABLE users 
 (
   user_id INT AUTO_INCREMENT PRIMARY KEY,
-  student_id VARCHAR(5) UNIQUE,
   first_name VARCHAR(50),
   last_name VARCHAR(50),
   username VARCHAR(25),
@@ -15,6 +14,7 @@ CREATE TABLE users
   state VARCHAR(100),
   zip VARCHAR(25),
   bio TEXT,
+  verification_code VARCHAR(6),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -25,6 +25,7 @@ CREATE TABLE events
   description TEXT,
   event_date DATE,
   location VARCHAR(150),
+  image VARCHAR(500),
   user_id INT,
   FOREIGN KEY (user_id) REFERENCES users(user_id)
 );

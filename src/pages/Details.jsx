@@ -2,6 +2,7 @@ import "../App.css"
 import { useParams, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 
+
 function Details() {
 
   const { id } = useParams()

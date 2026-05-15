@@ -149,6 +149,7 @@ public class EventController {
 
         Integer userId =
                 getUserIdFromSession(session);
+                
 
         if (userId == null) {
 
@@ -396,6 +397,39 @@ emailService.sendEventRegistrationEmail(
                     );
         }
     }
+    @GetMapping("/registered")
+public ResponseEntity<?> getRegisteredEvents(
+        HttpSession session
+) {
+
+    Integer userId =
+            getUserIdFromSession(session);
+
+    if (userId == null) {
+
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body("User not logged in");
+    }
+
+    try {
+
+        List<Event> events =
+                eventRepository.getRegisteredEvents(
+                        userId
+                );
+
+        return ResponseEntity.ok(events);
+
+    } catch (Exception e) {
+
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(
+                        "Error loading registered events"
+                );
+    }
+}
 
     // HELPER METHOD
 

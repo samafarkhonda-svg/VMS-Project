@@ -192,6 +192,8 @@ public class AuthController {
         // Save user info in session (keeps user logged in)
         session.setAttribute("userId", user.getUserId());
         session.setAttribute("username", user.getUsername());
+        session.setAttribute("email", user.getEmail());
+session.setAttribute("firstName", user.getFirstName());
 
         // Create safe user object (do NOT send password to frontend)
         Map<String, Object> safeUser = new HashMap<>();

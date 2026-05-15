@@ -21,7 +21,6 @@ public class RegistrationController {
 
     private final RegistrationRepository registrationRepository;
 
-    private final EmailService emailService;
 
     public RegistrationController(
             RegistrationRepository registrationRepository,
@@ -31,8 +30,6 @@ public class RegistrationController {
         this.registrationRepository =
                 registrationRepository;
 
-        this.emailService =
-                emailService;
     }
 
     @PostMapping("/register")

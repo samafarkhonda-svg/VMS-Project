@@ -78,33 +78,20 @@ function Profile() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      const eventIds = data.eventIds || [];
-
-      if (eventIds.length > 0) {
-        const eventsList = document.getElementById("registeredEventsList");
-        const noEventsMessage = document.getElementById("noEventsMessage");
-
-        const eventDetailsPromises = eventIds.map(eventId =>
-          fetch(`http://localhost:8080/api/events/${eventId}`, {
-            credentials: "include"
-          })
-            .then(res => res.json())
-            .catch(err => {
-              console.error(`Error fetching event ${eventId}:`, err);
-              return { id: eventId, title: `Event ${eventId}` };
-            })
-        );
-
-        const eventDetails = await Promise.all(eventDetailsPromises);
-
-        const eventsHTML = eventDetails
-          .map(event => `<div style="padding: 8px; margin: 3px 0;">• ${event.title || `Event ${event.id}`}</div>`)
+      const events = Array.isArray(data) ? data : [];
+  
+      const eventsList = document.getElementById("registeredEventsList");
+      const noEventsMessage = document.getElementById("noEventsMessage");
+  
+      if (events.length > 0) {
+        const eventsHTML = events
+          .map(event => `<div style="padding: 8px; margin: 3px 0;">• ${event.eventName || "Event"}</div>`)
           .join("");
-
+  
         if (noEventsMessage) noEventsMessage.style.display = "none";
-        if (eventsList) eventsList.innerHTML = eventsHTML || "<p>No events found.</p>";
+        if (eventsList) eventsList.innerHTML = eventsHTML;
       } else {
-        setRegisteredEvents([]);
+        if (noEventsMessage) noEventsMessage.style.display = "block";
       }
     } catch (error) {
       console.error("Error loading registered events:", error);

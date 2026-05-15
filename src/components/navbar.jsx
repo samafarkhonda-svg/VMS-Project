@@ -7,7 +7,7 @@ function Navbar() {
     const user = storedUser ? JSON.parse(storedUser) : null
     const loggedIn = user !== null
 
-    if (location.pathname == "/dashboard" || location.pathname == "/partnerships" || location.pathname == "/about" || location.pathname == "/events" || location.pathname == "/details/:id") {
+    if (location.pathname == "/dashboard" || location.pathname == "/partnerships" || location.pathname == "/about" || location.pathname == "/events" || location.pathname == "/details/1" || location.pathname == "/details/2" || location.pathname == "/details/3" || location.pathname == "/details/4" || location.pathname == "/event-registration-confirmation") {
         if (loggedIn) {
             return (
                 <nav>

@@ -150,18 +150,23 @@ function ProfileModify() {
 
   return (
     <div>
-      <span className="account-management-wrapper">
-        <div className="sidebar">  
-          <div className="top-bar"> 
-            <button className="back-btn" onClick={() => navigate(-1)}>←</button>  
-            <span className="signout" onClick={handleSignOut}>sign out</span>  
-          </div>
+      <div className="profile-page">
+        {/* Top Navigation Bar */}
+        <div className="top-navbar">
+          <button className="back-btn" onClick={() => navigate(-1)}>←</button>
+          <span className="signout" onClick={handleSignOut}>sign out</span>
+        </div>
+
+        {/* Profile Photo Section */}
+        <div className="profile-photo-section">
           <h2>Profile Photo</h2>
-          <div className="photo-box"> 
+          <div className="photo-box">
             <img id="profileImage" src="images/profile.png" alt="Profile" />
           </div>
         </div>
-        <div className="form-area">  
+
+        {/* Form Area - Full width */}
+        <div className="form-area-full">
           <form>
             <div className="row">  
               <div className="field">  
@@ -215,7 +220,7 @@ function ProfileModify() {
 
             <div className="field full">  
               <label>Registered Events</label>
-              <div className="registeredEventsList">
+              <div id="registeredEventsList" className="registeredEventsList">
                 <p id="noEventsMessage">No events registered yet.</p>
               </div>
             </div>
@@ -227,7 +232,7 @@ function ProfileModify() {
             </div>
           </form>
         </div>
-      </span>
+      </div>
     </div>
   )
 }

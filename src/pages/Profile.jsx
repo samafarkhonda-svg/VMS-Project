@@ -114,92 +114,94 @@ function Profile() {
     }
   }
 
-  // ✅ FIXED: Use useEffect instead of window.addEventListener
   useEffect(() => {
     loadProfile();
     loadRegisteredEvents();
   }, []);
 
   return (
-    <div>
-      <span className="account-management-wrapper">
-        <div className="sidebar"> 
-          <div className="top-bar"> 
-            <button className="back-btn" onClick={() => navigate(-1)}>←</button> 
-            <span className="signout" onClick={handleSignOut}>sign out</span>  
-          </div>
-          <h2>Profile Photo</h2>
-          <div className="photo-box"> 
-            <img id="profileImage" src="images/profile.png" alt="Profile" />
-          </div>
+   <div>
+      {/* Top Navigation Bar */}
+      <div className="top-navbar">
+        <button className="back-btn" onClick={() => navigate(-1)}>←</button>
+        <span className="signout" onClick={handleSignOut}>sign out</span>
+      </div>
+
+      {/* Profile Photo Section*/}
+      <div className="profile-photo-container">
+        <h2>Profile Photo</h2>
+        <div className="photo-box">
+          <img id="profileImage" src="images/profile.png" alt="Profile" />
         </div>
-        <div className="form-area">
-          <form>
-            <div className="row">  
-              <div className="field">  
-                <label>First Name</label>
-                <input type="text" id="firstName" readOnly />  
-              </div>
-              <div className="field">  
-                <label>Last Name</label>
-                <input type="text" id="lastName" readOnly />
-              </div>
-            </div>
+      </div>
 
-            <div className="field full">  
-              <label>Email Address</label>
-              <input type="text" id="email" readOnly /> 
+      {/* User Information Form */}
+      <div className="form-area">
+        <form>
+          <div className="row">  
+            <div className="field">  
+              <label>First Name</label>
+              <input type="text" id="firstName" readOnly />  
             </div>
+            <div className="field">  
+              <label>Last Name</label>
+              <input type="text" id="lastName" readOnly />
+            </div>
+          </div>
 
-            <div className="row"> 
-              <div className="field">  
-                <label>Phone Number</label>
-                <input type="text" id="phone" readOnly />  
-              </div>
-              <div className="field">  
-                <label>Birth Date</label>
-                <input type="text" id="birthDate" readOnly /> 
-              </div>
-            </div>
-            <div className="field full">  
-              <label>Address</label>
-              <input type="text" id="address" readOnly />
-            </div>
-            <div className="row">  
-              <div className="field">  
-                <label>City</label>
-                <input type="text" id="city" readOnly />
-              </div>
-              <div className="field">  
-                <label>State</label>
-                <input type="text" id="state" readOnly /> 
-              </div>
-              <div className="field">  
-                <label>Zip Code</label>
-                <input type="text" id="zip" readOnly />
-              </div>
-            </div>
+          <div className="field full">  
+            <label>Email Address</label>
+            <input type="text" id="email" readOnly /> 
+          </div>
 
-            <div className="field full">  
-              <label>Bio</label>
-              <textarea id="bio" readOnly></textarea> 
+          <div className="row"> 
+            <div className="field">  
+              <label>Phone Number</label>
+              <input type="text" id="phone" readOnly />  
             </div>
+            <div className="field">  
+              <label>Birth Date</label>
+              <input type="text" id="birthDate" readOnly /> 
+            </div>
+          </div>
+          <div className="field full">  
+            <label>Address</label>
+            <input type="text" id="address" readOnly />
+          </div>
+          <div className="row">  
+            <div className="field">  
+              <label>City</label>
+              <input type="text" id="city" readOnly />
+            </div>
+            <div className="field">  
+              <label>State</label>
+              <input type="text" id="state" readOnly /> 
+            </div>
+            <div className="field">  
+              <label>Zip Code</label>
+              <input type="text" id="zip" readOnly />
+            </div>
+          </div>
 
-            <div className="field full">  
-              <label>Registered Events</label>
-              <div className="registeredEventsList">
-                <p id="noEventsMessage">No events registered yet.</p>
-              </div>
-            </div>
+          <div className="field full">  
+            <label>Bio</label>
+            <textarea id="bio" readOnly></textarea> 
+          </div>
 
-            <div className="submit-row">  
-              <button className="save-btn" onClick={modifyProfile}>  
-                Edit Profile
-              </button>
+          <div className="field full">  
+            <label>Registered Events</label>
+            <div className="registeredEventsList">
+              <p id="noEventsMessage">No events registered yet.</p>
             </div>
-          </form>
-        </div>
-      </span>
+          </div>
+
+          <div className="submit-row">  
+            <button className="save-btn" onClick={modifyProfile}>  
+              Edit Profile
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   )
 }

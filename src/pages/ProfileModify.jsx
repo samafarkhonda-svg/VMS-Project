@@ -135,6 +135,19 @@ function ProfileModify() {
     loadRegisteredEvents();
   }, []);
 
+  const handleSignOut = async () => {
+    try {
+      await fetch("http://localhost:8080/api/auth/logout", {
+        method: "POST",
+        credentials: "include"
+      });
+      localStorage.removeItem("user");
+      navigate("/login");
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  }
+
   return (
     <div>
       <span className="account-management-wrapper">
@@ -202,7 +215,7 @@ function ProfileModify() {
 
             <div className="field full">  
               <label>Registered Events</label>
-              <div id="registeredEventsList" style={{padding: 12, borderRadius: 10, minHeight: 60, background: '#e6c68b'}}>
+              <div className="registeredEventsList">
                 <p id="noEventsMessage">No events registered yet.</p>
               </div>
             </div>

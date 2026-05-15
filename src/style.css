@@ -16,7 +16,7 @@ body {
 /* LEFT PANEL */
 .sidebar {
   width: 30%;
-  background: #f59e0b;
+  background: #fFA500;
   color: black;
   padding: 20px;
   display: flex;
@@ -69,7 +69,7 @@ body {
 .form-area {
   width: 70%;
   padding: 30px;
-  background: #ddd;
+  background-color: white;
 }
 
 form {
@@ -98,11 +98,11 @@ label {
   font-weight: bold;
 }
 
-input, textarea {
+input, textarea, .registeredEventsList {
   padding: 12px;
   border-radius: 10px;
   border: none;
-  background: #e6c68b;
+  background-color: rgba(255, 165, 0, 0.3);
 }
 
 textarea {
@@ -124,7 +124,6 @@ textarea {
   border-radius: 10px;
   cursor: pointer;
 }
-/* Add this to your style.css */
 .account-management-wrapper {
   display: flex;
   flex-direction: row;

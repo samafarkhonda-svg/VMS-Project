@@ -50,6 +50,32 @@ input:focus::placeholder{
   transition: background-color 0.1s ease;
 }
 
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 80%;
+  margin: 18px auto;
+  box-sizing: border-box;
+}
+
+.password-wrapper .signup-page-input {
+  width: 100%;
+  margin: 0;
+  padding-right: 45px;
+  padding-left: 45px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  user-select: none;
+}
+
 .call-to-action{
   margin: 30px;
   margin-bottom: 15px;

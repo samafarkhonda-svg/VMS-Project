@@ -33,7 +33,8 @@ function SignupPage() {
     password: "",
   })
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -121,7 +122,22 @@ function SignupPage() {
             <input className="signup-page-input" placeholder="Last Name" name="lastName" onChange={handleChange} />
             <input className="signup-page-input" placeholder="Username" name="username" onChange={handleChange} />
             <input className="signup-page-input" placeholder="E-mail" name="email" onChange={handleChange} />
-            <input className="signup-page-input" placeholder="Password" type="password" name="password" onChange={handleChange} />
+            
+            <div className="password-wrapper">
+              <input
+                className="signup-page-input"
+                placeholder="Password"
+                type={showPassword ? "text" : "password"}
+                name="password"
+                onChange={handleChange}
+              />
+              <span
+                className="toggle-password"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? "◉" : "◎"}
+              </span>
+            </div>
           </div>
 
           <button

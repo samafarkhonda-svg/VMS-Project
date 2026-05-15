@@ -50,6 +50,11 @@ public class UserRepository {
         jdbcTemplate.update(sql, token, email);
     }
 
+    public void updatePassword(String email, String password) {
+        String sql = "UPDATE users SET password = ? WHERE email = ?";
+        jdbcTemplate.update(sql, password, email);
+    }
+
     // Get verification code for a user
     public String getVerificationCode(String email) {
         String sql = "SELECT verification_code FROM users WHERE email = ?";

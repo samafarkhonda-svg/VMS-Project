@@ -59,6 +59,14 @@ input:focus::placeholder{
   box-sizing: border-box;
 }
 
+.password-wrapper-reset {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 80%;
+  box-sizing: border-box;
+}
+
 .password-wrapper .signup-page-input {
   width: 100%;
   margin: 0;

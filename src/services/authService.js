@@ -139,6 +139,29 @@ export async function checkToken(email, token) {
   }
 }
 
+// Mason - sets new password
+export async function setNewPassword(email, password) {
+  console.log("in authService.js")
+  try {
+    const response = await fetch(`${API_BASE_URL}/setNewPassword`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ email, password }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("New password creation failed:", error);
+    return {
+      success: false,
+      message: "Unable to connect to the server.",
+    };
+  }
+}
+
 //Ouiam checks if user is already logged in (authorization check)
 export async function checkAuth() {
   try {

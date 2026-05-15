@@ -1,13 +1,14 @@
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
 import { useState } from 'react';
-import { checkToken } from "../services/authService"
+import { checkToken, setNewPassword } from "../services/authService"
 import { useEffect } from 'react';
 import "../App.css"
 
 function ForgotPasswordEntry(){
     const navigate = useNavigate()
     const [match, setMatch] = useState(false);
+    const [showPassword, setShowPassword] = useState(false)
     
     // retrieving the token from the url
     const [params] = useSearchParams();
@@ -73,6 +74,10 @@ function ForgotPasswordEntry(){
             return
         }
 
+        // send new password to database
+        // we're just sending password1 since they match
+
+        setNewPassword(email, password1)
 
         navigate("/forgot-password-confirm")
     }
@@ -104,24 +109,35 @@ function ForgotPasswordEntry(){
                     <p className="margin-10">
                         Enter your new password below:
                     </p>
-                    <input
-                        type="text"
-                        className="verification-code"
-                        placeholder="password"
-                        value={password1}
-                        onChange={(e) => setPassword1(e.target.value)}
-                    />
-                    <p className="margin-10">
-                        Confirm your password:
-                    </p>
-                    <input
-                        type="text"
-                        className="verification-code"
-                        placeholder="password"
-                        value={password2}
-                        onChange={(e) => setPassword2(e.target.value)}
-                    />
-                    <div></div>
+                    <div className="password-wrapper-reset">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            className="verification-code"
+                            placeholder="password"
+                            value={password1}
+                            onChange={(e) => setPassword1(e.target.value)}
+                        /></div>
+                        <p className="margin-10">
+                            Confirm your password:
+                        </p>
+                    <div className="password-wrapper-reset">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            className="verification-code"
+                            placeholder="password"
+                            value={password2}
+                            onChange={(e) => setPassword2(e.target.value)}
+                        /></div>
+                        
+                    
+                    <div>
+                    <span
+                        
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                        Show: {showPassword ? "◉" : "◎"}
+                    </span>
+                    </div>
 
                     <button className="confirm-code" onClick={sendConfirm}>
                     Confirm

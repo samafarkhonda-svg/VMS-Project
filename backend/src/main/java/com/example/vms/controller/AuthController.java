@@ -135,6 +135,25 @@ public class AuthController {
         }
     }
 
+    // changes the user's password when resetting it
+    @PostMapping("/setNewPassword")
+    public ResponseEntity<AuthResponse> setNewPassword(@RequestBody Map<String, String> request) {
+
+        String email = request.get("email");
+        String password = request.get("password");
+
+        userRepository.updatePassword(email, passwordEncoder.encode(password)); // encode password before storing it
+
+        if (password == null || email == null) {
+            return ResponseEntity.badRequest()
+                    .body(new AuthResponse(false, "Email required."));
+        }
+        else {
+            return ResponseEntity.ok(new AuthResponse(true, "Tokens match."));
+        }
+
+    }
+
     // This method handles login requests from the frontend
     // It listens to POST requests at /api/auth/login
     @PostMapping("/login")

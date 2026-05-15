@@ -202,7 +202,6 @@ function Profile() {
           </form>
         </div>
       </div>
-    </div>
   )
 }
 

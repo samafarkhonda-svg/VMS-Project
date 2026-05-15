@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.vms.service.EmailService;
+import com.example.vms.service.EmailServiceURL;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.HashMap;
@@ -25,11 +26,13 @@ public class AuthController {
     // This connects the controller to the database layer
     private final UserRepository userRepository;
     private final EmailService emailService;
+    private final EmailServiceURL emailServiceURL;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public AuthController(UserRepository userRepository, EmailService emailService) {
+    public AuthController(UserRepository userRepository, EmailService emailService, EmailServiceURL emailServiceURL) {
         this.userRepository = userRepository;
         this.emailService = emailService;
+        this.emailServiceURL = emailServiceURL;
     }
 
     @PostMapping("/signup")
@@ -85,6 +88,50 @@ public class AuthController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new AuthResponse(false, "Invalid or expired code."));
+        }
+    }
+
+
+    // Sends email to user when resetting password
+    @PostMapping("/resetPasswordEmail")
+    public ResponseEntity<AuthResponse> resetPasswordEmail(@RequestBody Map<String, String> request) {
+
+        String email = request.get("email");
+
+        if (email == null) {
+            return ResponseEntity.badRequest()
+                    .body(new AuthResponse(false, "Email required."));
+        }
+
+        emailServiceURL.sendVerificationURL(email);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new AuthResponse(true, "Email sent successfully."));
+    }
+
+    // Compares tokens when user is resetting password
+    @PostMapping("/checkTokenPWReset")
+    public ResponseEntity<AuthResponse> checkTokenPWReset(@RequestBody Map<String, String> request) {
+
+        String email = request.get("email");
+        String token = request.get("token");
+
+        if (email == null) {
+            return ResponseEntity.badRequest()
+                    .body(new AuthResponse(false, "Email required."));
+        }
+        if (token == null) {
+            return ResponseEntity.badRequest()
+                    .body(new AuthResponse(false, "Token (from URL) required."));
+        }
+        
+        boolean match = emailServiceURL.compareTokens(email, token);
+
+        if (match) {
+            return ResponseEntity.ok(new AuthResponse(true, "Tokens match."));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new AuthResponse(false, "Tokens don't match."));
         }
     }
 

@@ -45,8 +45,8 @@ public class UserRepository {
     }
 
     // Save token for a user
-    public void saveVerificationToken(String email, String token) {
-        String sql = "UPDATE users SET verification_token = ? WHERE email = ?";
+    public void saveResetToken(String email, String token) {
+        String sql = "UPDATE users SET reset_token = ? WHERE email = ?";
         jdbcTemplate.update(sql, token, email);
     }
 
@@ -56,6 +56,17 @@ public class UserRepository {
         List<String> results = jdbcTemplate.query(
             sql,
             (rs, rowNum) -> rs.getString("verification_code"),
+            email
+        );
+        return results.isEmpty() ? null : results.get(0);
+    }
+
+    // Get token for a user
+    public String getResetToken(String email) {
+        String sql = "SELECT reset_token FROM users WHERE email = ?";
+        List<String> results = jdbcTemplate.query(
+            sql,
+            (rs, rowNum) -> rs.getString("reset_token"),
             email
         );
         return results.isEmpty() ? null : results.get(0);

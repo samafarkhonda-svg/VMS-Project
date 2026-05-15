@@ -1,12 +1,14 @@
 import { useNavigate } from "react-router-dom"
+import { useState } from 'react';
+import { sendVerificationURL } from "../services/authService"
 import "../App.css"
 
 function ForgotPassword(){
     const navigate = useNavigate()
 
-    //const [email, setEmail] = useState("")
+    const [email, setEmail] = useState("")
     const sendReset = async () => {
-        // send reset email to the email provided, if it exists in the database
+        const data = await sendVerificationURL(email)
         navigate("/forgot-password-sent")
     }
 
@@ -24,6 +26,8 @@ function ForgotPassword(){
                     type="text"
                     className="verification-code"
                     placeholder="myemail@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
 
             <button className="confirm-code" onClick={sendReset}>

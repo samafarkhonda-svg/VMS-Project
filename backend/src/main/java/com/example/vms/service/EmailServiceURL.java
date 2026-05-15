@@ -26,24 +26,45 @@ public class EmailServiceURL {
     }
 
     //generates a token to be appended to the URL 
-    public void sendVerificationURL(String email, String firstName) {
+    public void sendVerificationURL(String email) {
 
         //generates a token
         String token = UUID.randomUUID().toString();
+        // String token = "testToken";
 
         //saves the code to the database
-        userRepository.saveVerificationToken(email, token);
+        userRepository.saveResetToken(email, token);
 
-        String url = "http://localhost:5173/forgot-password-entry/" + token;
+        String url = "http://localhost:5173/forgot-password-entry?token=" + token;
+        System.out.println(url);
 
         //creates the email for the user
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
         message.setSubject("VMS Password Reset Request");
-        message.setText("Hi " + firstName + ",\n\nA password reset attempt was recently initialized for your VMS account.\n\nIf you requested for your password to be reset, please click the link below to choose a new password: \n\n" + url + "\n\nThis link expires in 10 minutes.\n\nIf you did not initialize this password reset attempt, just ignore this email.");
+        message.setText("A password reset attempt was recently initialized for your VMS account.\n\nIf you requested for your password to be reset, please click the link below to choose a new password: \n\n" + url + "\n\nThis link expires in 10 minutes.\n\nIf you did not initialize this password reset attempt, just ignore this email.");
+
 
         //sends the email
         mailSender.send(message);
+
+    }
+
+    public boolean compareTokens(String email, String urlToken){
+        // get token from userRepository
+        String dbToken = userRepository.getResetToken(email);
+        //String dbToken = "testToken";
+        if (dbToken.equals(urlToken))
+        {
+            // tokens match
+            System.out.println("tokens match");
+            return true;
+        }
+        else {
+            // tokens don't match
+            return false;
+        }
+
     }
     
 }

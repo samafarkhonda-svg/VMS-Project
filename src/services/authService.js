@@ -93,6 +93,52 @@ export async function verifyUser(email, code) {
   }
 }
 
+// Mason - sends user a URL to click when resetting password
+export async function sendVerificationURL(email) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/resetPasswordEmail`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ email }),
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Email attempt failed:", error);
+    return {
+      success: false,
+      message: "Unable to connect to the server.",
+    };
+  }
+}
+
+// Mason - compares the token in the URL to the token in the database when resetting password
+export async function checkToken(email, token) {
+  console.log("in authService.js")
+  try {
+    const response = await fetch(`${API_BASE_URL}/checkTokenPWReset`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ email, token }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Token check failed:", error);
+    return {
+      success: false,
+      message: "Unable to connect to the server.",
+    };
+  }
+}
+
 //Ouiam checks if user is already logged in (authorization check)
 export async function checkAuth() {
   try {

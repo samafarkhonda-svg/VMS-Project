@@ -23,7 +23,6 @@ function Profile() {
     navigate("/profile-modify")
   }
 
-  // ✅ ADDED: Sign out handler
   const handleSignOut = async () => {
     try {
       const response = await fetch("http://localhost:8080/api/logout", {
@@ -136,71 +135,72 @@ function Profile() {
       </div>
 
       {/* User Information Form */}
-      <div className="form-area">
-        <form>
-          <div className="row">  
-            <div className="field">  
-              <label>First Name</label>
-              <input type="text" id="firstName" readOnly />  
+      <div className="form-area-full">
+          <form>
+            <div className="row">  
+              <div className="field">  
+                <label>First Name</label>
+                <input type="text" id="firstName" readOnly />  
+              </div>
+              <div className="field">  
+                <label>Last Name</label>
+                <input type="text" id="lastName" readOnly />
+              </div>
             </div>
-            <div className="field">  
-              <label>Last Name</label>
-              <input type="text" id="lastName" readOnly />
-            </div>
-          </div>
 
-          <div className="field full">  
-            <label>Email Address</label>
-            <input type="text" id="email" readOnly /> 
-          </div>
+            <div className="field full">  
+              <label>Email Address</label>
+              <input type="text" id="email" readOnly /> 
+            </div>
 
-          <div className="row"> 
-            <div className="field">  
-              <label>Phone Number</label>
-              <input type="text" id="phone" readOnly />  
+            <div className="row"> 
+              <div className="field">  
+                <label>Phone Number</label>
+                <input type="text" id="phone" readOnly />  
+              </div>
+              <div className="field">  
+                <label>Birth Date</label>
+                <input type="text" id="birthDate" readOnly /> 
+              </div>
             </div>
-            <div className="field">  
-              <label>Birth Date</label>
-              <input type="text" id="birthDate" readOnly /> 
+            <div className="field full">  
+              <label>Address</label>
+              <input type="text" id="address" readOnly />
             </div>
-          </div>
-          <div className="field full">  
-            <label>Address</label>
-            <input type="text" id="address" readOnly />
-          </div>
-          <div className="row">  
-            <div className="field">  
-              <label>City</label>
-              <input type="text" id="city" readOnly />
+            <div className="row">  
+              <div className="field">  
+                <label>City</label>
+                <input type="text" id="city" readOnly />
+              </div>
+              <div className="field">  
+                <label>State</label>
+                <input type="text" id="state" readOnly /> 
+              </div>
+              <div className="field">  
+                <label>Zip Code</label>
+                <input type="text" id="zip" readOnly />
+              </div>
             </div>
-            <div className="field">  
-              <label>State</label>
-              <input type="text" id="state" readOnly /> 
-            </div>
-            <div className="field">  
-              <label>Zip Code</label>
-              <input type="text" id="zip" readOnly />
-            </div>
-          </div>
 
-          <div className="field full">  
-            <label>Bio</label>
-            <textarea id="bio" readOnly></textarea> 
-          </div>
-
-          <div className="field full">  
-            <label>Registered Events</label>
-            <div className="registeredEventsList">
-              <p id="noEventsMessage">No events registered yet.</p>
+            <div className="field full">  
+              <label>Bio</label>
+              <textarea id="bio" readOnly></textarea> 
             </div>
-          </div>
 
-          <div className="submit-row">  
-            <button className="save-btn" onClick={modifyProfile}>  
-              Edit Profile
-            </button>
-          </div>
-        </form>
+            <div className="field full">  
+              <label>Registered Events</label>
+              <div className="registeredEventsList">
+                <p id="noEventsMessage">No events registered yet.</p>
+              </div>
+            </div>
+
+            <div className="submit-row">  
+              <button className="save-btn" onClick={modifyProfile}>  
+                Edit Profile
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   )

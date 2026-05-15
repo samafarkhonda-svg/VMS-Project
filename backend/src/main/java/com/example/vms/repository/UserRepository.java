@@ -44,6 +44,12 @@ public class UserRepository {
         jdbcTemplate.update(sql, code, email);
     }
 
+    // Save token for a user
+    public void saveVerificationToken(String email, String token) {
+        String sql = "UPDATE users SET verification_token = ? WHERE email = ?";
+        jdbcTemplate.update(sql, token, email);
+    }
+
     // Get verification code for a user
     public String getVerificationCode(String email) {
         String sql = "SELECT verification_code FROM users WHERE email = ?";

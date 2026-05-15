@@ -124,3 +124,9 @@ textarea {
   border-radius: 10px;
   cursor: pointer;
 }
+/* Add this to your style.css */
+.account-management-wrapper {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}

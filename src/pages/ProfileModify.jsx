@@ -153,7 +153,7 @@ function ProfileModify() {
       <div className="profile-page">
         {/* Top Navigation Bar */}
         <div className="top-navbar">
-          <button className="back-btn" onClick={() => navigate(-1)}>←</button>
+          <button className="back-btn" onClick={() => navigate("/events")}>←</button>
           <span className="signout" onClick={handleSignOut}>sign out</span>
         </div>
 
@@ -161,7 +161,7 @@ function ProfileModify() {
         <div className="profile-photo-section">
           <h2>Profile Photo</h2>
           <div className="photo-box">
-            <img id="profileImage" src="images/profile.png" alt="Profile" />
+            <img id="profileImage" src="./public/profile-placeholder.jpg" alt="Profile" />
           </div>
         </div>
 
@@ -216,13 +216,6 @@ function ProfileModify() {
             <div className="field full">  
               <label>Bio</label>
               <textarea id="bio" rows="3"></textarea>  
-            </div>
-
-            <div className="field full">  
-              <label>Registered Events</label>
-              <div id="registeredEventsList">
-                <p id="noEventsMessage">No events registered yet.</p>
-              </div>
             </div>
 
             <div className="submit-row"> 

@@ -109,7 +109,7 @@ function Profile() {
    <div>
       {/* Top Navigation Bar */}
       <div className="top-navbar">
-        <button className="back-btn" onClick={() => navigate(-1)}>←</button>
+      <button className="back-btn" onClick={() => navigate("/events")}>←</button>
         <span className="signout" onClick={handleSignOut}>sign out</span>
       </div>
 

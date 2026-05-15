@@ -12,6 +12,7 @@ public class Event
     private String location;
     private Integer userId;
     private String image;
+    private String eventTime;
 
     public Integer getEventId() 
     {
@@ -81,5 +82,15 @@ public class Event
     public void setImage(String image) 
     {
         this.image = image;
+    }
+
+    public String getEventTime()
+    {
+        return eventTime;
+    }
+
+    public void setEventTime(String eventTime)
+    {
+        this.eventTime = eventTime;
     }
 }

@@ -8,4 +8,8 @@ import java.util.List;
 public interface RegistrationRepository extends JpaRepository<Registration, Integer> {
 
     List<Registration> findByUserName(String userName);
+
+    boolean existsByUserNameAndEventId(String userName, int eventId);
+
+    void deleteByUserNameAndEventId(String userName, int eventId);
 }

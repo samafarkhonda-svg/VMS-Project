@@ -6,7 +6,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:5174"})
+@CrossOrigin(origins = {
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "http://localhost:5179"
+})
 @RestController
 @RequestMapping("/api")
 public class RegistrationController {
@@ -19,8 +23,34 @@ public class RegistrationController {
 
     @PostMapping("/register")
     public String register(@RequestBody Registration registration) {
+
+        boolean alreadyRegistered =
+                registrationRepository.existsByUserNameAndEventId(
+                        registration.getUserName(),
+                        registration.getEventId()
+                );
+
+        if (alreadyRegistered) {
+            return "User already registered";
+        }
+
         registrationRepository.save(registration);
+
         return "Registered successfully";
+    }
+
+    @DeleteMapping("/register/{eventId}")
+    public String unregister(
+            @PathVariable int eventId,
+            @RequestParam String userName
+    ) {
+
+        registrationRepository.deleteByUserNameAndEventId(
+                userName,
+                eventId
+        );
+
+        return "Unregistered successfully";
     }
 
     @GetMapping("/register/user/{username}")

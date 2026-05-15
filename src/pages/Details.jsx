@@ -1,62 +1,110 @@
 import "../App.css"
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 
 function Details() {
+
   const { id } = useParams()
   const navigate = useNavigate()
 
   const [event, setEvent] = useState(null)
-  const [isRegistered, setIsRegistered] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+
     const fetchEvent = async () => {
+
       try {
+
         setLoading(true)
-        const response = await fetch(`http://localhost:8080/api/events/${id}`, {
-          credentials: "include"
-        })
+
+        const response = await fetch(
+          `http://localhost:8080/api/events/${id}`,
+          {
+            credentials: "include",
+          }
+        )
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch event")
+        }
+
         const data = await response.json()
+        console.log(data.image)
+
         setEvent(data)
+
         setIsRegistered(data.isRegistered || false)
+
       } catch (err) {
+
         console.error(err)
+
       } finally {
+
         setLoading(false)
+
       }
     }
-    
+
     fetchEvent()
+
   }, [id])
 
   const toggleRegistration = async () => {
+
     try {
+
       const response = await fetch(
+
         isRegistered
-          ? `http://localhost:8080/api/register/${id}`
-          : "http://localhost:8080/api/register",
+          ? `http://localhost:8080/api/events/register/${id}`
+          : "http://localhost:8080/api/events/register",
+
         {
           method: isRegistered ? "DELETE" : "POST",
+
           credentials: "include",
+
           headers: {
             "Content-Type": "application/json",
           },
-          body: isRegistered ? null : JSON.stringify({ eventId: Number(id) }),
+
+          body: isRegistered
+            ? null
+            : JSON.stringify({
+                eventId: Number(id),
+              }),
         }
       )
 
       if (!response.ok) {
-        throw new Error("Failed")
+        throw new Error("Request failed")
       }
 
-      setIsRegistered(!isRegistered)
-      setEvent((prev) => ({
-        ...prev,
-        isRegistered: !prev.isRegistered,
-      }))
+      if (isRegistered) {
+
+        setIsRegistered(false)
+
+      } else {
+
+        setIsRegistered(true)
+
+        navigate(
+          "/event-registration-confirmation",
+          {
+            state: {
+              event,
+            },
+          }
+        )
+      }
+
     } catch (err) {
+
       console.error(err)
+
       alert("Request failed")
     }
   }
@@ -66,13 +114,20 @@ function Details() {
   }
 
   return (
+
     <div className="details-page">
+
       <div className="details-content">
+
         <img
-          src={event.image}
-          alt={event.eventName}
-          className="details-image"
-        />
+  src={event.image}
+  alt={event.eventName}
+  className="details-image"
+  onError={(e) => {
+    e.target.src =
+      "https://via.placeholder.com/600x300?text=Volunteer+Event"
+  }}
+/>
 
         <h1>{event.eventName}</h1>
 
@@ -83,7 +138,7 @@ function Details() {
 
         <p>
           <strong>Time:</strong>{" "}
-          {event.eventTime}
+          {event.eventTime || "8:00 AM - 2:00 PM"}
         </p>
 
         <p>
@@ -97,13 +152,19 @@ function Details() {
 
         <button
           className={`details-btn ${
-            isRegistered ? "registered-btn" : ""
+            isRegistered
+              ? "registered-btn"
+              : ""
           }`}
           onClick={toggleRegistration}
         >
-          {isRegistered ? "Unregister" : "Register"}
+          {isRegistered
+            ? "Unregister"
+            : "Register"}
         </button>
+
       </div>
+
     </div>
   )
 }

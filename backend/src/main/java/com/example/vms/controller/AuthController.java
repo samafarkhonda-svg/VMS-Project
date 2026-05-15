@@ -17,6 +17,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 // This annotation tells Spring that this class handles HTTP requests (API endpoints)
+@CrossOrigin(origins = {
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:5179"
+})
 @RestController
 
 // Base URL for all routes in this controller

@@ -165,7 +165,7 @@ function ProfileModify() {
           </div>
         </div>
 
-        {/* Form Area - Full width */}
+        {/* User Information Form */}
         <div className="form-area-full">
           <form>
             <div className="row">  
